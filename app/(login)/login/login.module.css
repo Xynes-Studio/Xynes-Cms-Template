@@ -1,0 +1,27 @@
+.container {
+  width: 100dvw;
+  height: 100dvh;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 2rem !important;
+  background-color: var(--foregroundInverse200);
+  position: relative;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.input {
+  width: 30dvw !important;
+  margin-top: 1rem;
+}
+
+.inputInside{
+    height: 1.5rem;
+}
+
+.button {
+  margin-top: 1rem !important;
+}

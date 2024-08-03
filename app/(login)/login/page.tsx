@@ -1,4 +1,4 @@
-// page.tsx
+
 import React from "react";
 import LogInClient from "./login.client";
 

@@ -26,7 +26,7 @@ export const color: colorTypes = {
   medium100: "#EEEEEE",
   medium200: "#999999",
   border: "rgba(255,255,255,0.1)",
-  border100: "#FFFFFF",
+  border100: "#2C2C2C",
   input100: "#E9E9E9",
   accent100: "#6F6DF1",
   accent200: "#FF7676",
