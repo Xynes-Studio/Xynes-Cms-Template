@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { CMSProvider } from "@/context/cmsProvider";
+import ClientOnly from "./client";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,17 +14,17 @@ const poppins = Poppins({
 const lufga = localFont({
   src: [
     {
-      path: "/fonts/lufga-100.otf",
+      path: "fonts/lufga-100.otf",
       weight: "100",
       style: "normal",
     },
     {
-      path: "/fonts/lufga-600.otf",
+      path: "fonts/lufga-600.otf",
       weight: "600",
       style: "bold",
     },
     {
-      path: "/fonts/lufga-semi.otf",
+      path: "fonts/lufga-semi.otf",
       weight: "400",
       style: "medium",
     },
@@ -33,7 +34,7 @@ const lufga = localFont({
 const afronaut = localFont({
   src: [
     {
-      path: "/fonts/Afronaut.otf",
+      path: "fonts/Afronaut.otf",
     },
   ],
   variable: "--header",
@@ -57,7 +58,7 @@ export default function RootLayout({
         )}
       >
         <CMSProvider>
-          {children}
+          <ClientOnly>{children}</ClientOnly>
         </CMSProvider>
       </body>
     </html>
