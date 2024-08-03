@@ -1,8 +1,43 @@
+import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { CMSProvider } from "@/context/cmsProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--body",
+});
+const lufga = localFont({
+  src: [
+    {
+      path: "/fonts/lufga-100.otf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "/fonts/lufga-600.otf",
+      weight: "600",
+      style: "bold",
+    },
+    {
+      path: "/fonts/lufga-semi.otf",
+      weight: "400",
+      style: "medium",
+    },
+  ],
+  variable: "--title",
+});
+const afronaut = localFont({
+  src: [
+    {
+      path: "/fonts/Afronaut.otf",
+    },
+  ],
+  variable: "--header",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +51,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={[poppins.variable, afronaut.variable, lufga.variable].join(
+          " "
+        )}
+      >
+        <CMSProvider>
+          {children}
+        </CMSProvider>
+      </body>
     </html>
   );
 }
