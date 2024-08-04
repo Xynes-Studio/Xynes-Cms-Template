@@ -11,24 +11,9 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--body",
 });
-const lufga = localFont({
-  src: [
-    {
-      path: "fonts/lufga-100.otf",
-      weight: "100",
-      style: "normal",
-    },
-    {
-      path: "fonts/lufga-600.otf",
-      weight: "600",
-      style: "bold",
-    },
-    {
-      path: "fonts/lufga-semi.otf",
-      weight: "400",
-      style: "medium",
-    },
-  ],
+const title = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--title",
 });
 const afronaut = localFont({
@@ -53,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={[poppins.variable, afronaut.variable, lufga.variable].join(
+        className={[poppins.variable, afronaut.variable, title.variable].join(
           " "
         )}
       >

@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { BackgroundType, colorTypes, spacingTypes, Strokes, Typography } from "./styles.types";
 
 // Global style variables
@@ -58,7 +57,7 @@ export const spacing: spacingTypes = {
 export const typography: Typography = {
   type: {
     primary: '"Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif',
-    title: 'var(--title)',
+    title: '"Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif',
     code: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
   },
   weight: {
@@ -96,21 +95,3 @@ export const neumorphismShadow: string =
 
 export const breakpoint:number = 600;
 export const pageMargin: number = 5.55555;
-
-export const pageMargins = css`
-  padding: 0 ${spacing.padding.p3};
-  @media (min-width: ${breakpoint}px) {
-    margin: 0 ${pageMargin}%;
-  }
-`;
-
-export const GlobalStyle = css`
-  body {
-    font-family: ${typography.type.primary};
-    font-size: ${typography.size.text}; /* Example font size */
-    color: ${color.foreground};
-    background: ${background.app};
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-`;
