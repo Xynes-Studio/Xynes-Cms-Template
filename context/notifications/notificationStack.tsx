@@ -9,11 +9,12 @@ const NotificationStack = () => {
 
   const addNotificationToStack = useCallback(() => {
     if (newNotifications && newNotifications[0]?.id) {
-      setAlertStack(prevStack => [newNotifications[0], ...prevStack]);
+      setAlertStack((prevStack) => [newNotifications[0], ...prevStack]);
       setTimeout(() => {
-        setAlertStack(prevStack =>
+        setAlertStack((prevStack) =>
           prevStack.filter(
-            (notification: Notification) => notification.id !== newNotifications[0].id
+            (notification: Notification) =>
+              notification.id !== newNotifications[0].id
           )
         );
       }, 3000);
@@ -27,7 +28,7 @@ const NotificationStack = () => {
   return (
     <Flex direction="column" className={styles.container}>
       {alertStack.map((item: Notification) => (
-        <Alert key={item.id} {...item} />
+        <Alert key={item.id} {...item} style={{ marginBottom: "1rem" }} />
       ))}
     </Flex>
   );

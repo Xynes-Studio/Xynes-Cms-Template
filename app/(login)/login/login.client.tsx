@@ -7,6 +7,7 @@ import {
   Notification,
   useNotifications,
 } from "@/context/notifications/notificationsProvider";
+import Loader from "@/components/load/load";
 
 export interface UserResponse {
   active: boolean;
@@ -26,12 +27,14 @@ export interface UserResponse {
 const LogInClient: React.FC = () => {
   const [userEmail, setUserEmail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   const { alert } = useNotifications();
   const apiService = new ApiService(
     process.env.HOST || "https://blog.xynes.com/api"
   );
 
   const handleLogIn = async () => {
+    setLoading(true);
     try {
       apiService.abort();
 
@@ -60,6 +63,7 @@ const LogInClient: React.FC = () => {
         alert(newNotification);
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -86,17 +90,20 @@ const LogInClient: React.FC = () => {
             label="Enter your password."
           />
         </div>
-
-        <Button
-          className={styles.button}
-          label="Log In"
-          onClick={() => {
-            // Handle login logic here
-            handleLogIn();
-            console.log("Email:", userEmail);
-            console.log("Password:", userPassword);
-          }}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <Button
+            className={styles.button}
+            label="Log In"
+            onClick={() => {
+              // Handle login logic here
+              handleLogIn();
+              console.log("Email:", userEmail);
+              console.log("Password:", userPassword);
+            }}
+          />
+        )}
       </Flex>
     </Flex>
   );
