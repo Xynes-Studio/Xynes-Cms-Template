@@ -1,6 +1,6 @@
 "use client";
 import { Button, cx, email, Flex, password, TextInput } from "lumia-ui";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./login.module.css";
 import ApiService from "@/services/apiService";
 import {
@@ -8,6 +8,8 @@ import {
   useNotifications,
 } from "@/context/notifications/notificationsProvider";
 import Loader from "@/components/load/load";
+import { getFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
+import { useRouter } from "next/router";
 
 export interface UserResponse {
   active: boolean;
@@ -27,11 +29,37 @@ export interface UserResponse {
 const LogInClient: React.FC = () => {
   const [userEmail, setUserEmail] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+  const [isLogIn, setIsLogIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const { alert } = useNotifications();
   const apiService = new ApiService(
     process.env.HOST || "https://blog.xynes.com/api"
   );
+
+  useEffect(() => {
+    const checkUser = async () => {
+      if (typeof window !== "undefined") {
+        try {
+          const user = await getFromLocalStorage("user");
+          if (user) {
+            if (window.location.pathname === "/login") {
+              window.location.replace("/");
+            }
+          } else {
+            setIsLogIn(true);
+          }
+        } catch (error: unknown) {
+          setIsLogIn(true);
+        }
+      }
+    };
+
+    checkUser();
+  }, []);
+
+  if (!isLogIn && window.location.pathname === "/login") {
+    return null;
+  }
 
   const handleLogIn = async () => {
     setLoading(true);
@@ -42,11 +70,12 @@ const LogInClient: React.FC = () => {
         passwd: userPassword,
         username: userEmail,
       });
-
-      console.log("User:", response);
+      await saveToLocalStorage("user", JSON.stringify(response));
+      if (window.location.pathname === "/login") {
+        window.location.replace("/");
+      }
     } catch (error: any) {
       if (error.name === "AbortError") {
-        console.warn("Login request was aborted");
         const newNotification: Notification = {
           title: "Login failed",
           description: "Login request was aborted!",
@@ -54,7 +83,6 @@ const LogInClient: React.FC = () => {
         };
         alert(newNotification);
       } else {
-        console.error("Error during login:", error);
         const newNotification: Notification = {
           title: "Login failed",
           description: "Either username or password was wrong.",

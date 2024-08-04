@@ -7,7 +7,7 @@ import CryptoJS from 'crypto-js';
  * @returns {string} - The encrypted data.
  */
 export const encryptData = (data: string): string => {
-  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || process.env.SECRET_KEY;
+  const secretKey = process.env.SECRET_KEY;
   if (!secretKey) {
     throw new Error('Secret key not found in environment variables.');
   }
@@ -21,7 +21,7 @@ export const encryptData = (data: string): string => {
  * @returns {string} - The decrypted data.
  */
 export const decryptData = (encryptedData: string): string => {
-  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || process.env.SECRET_KEY;
+  const secretKey = process.env.SECRET_KEY;
   if (!secretKey) {
     throw new Error('Secret key not found in environment variables.');
   }
