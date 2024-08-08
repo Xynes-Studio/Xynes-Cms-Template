@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { CMSProvider } from "@/context/cmsProvider";
 import ClientOnly from "./client";
+import styles from './page.module.css';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,7 +44,9 @@ export default function RootLayout({
         )}
       >
         <CMSProvider>
-          <ClientOnly>{children}</ClientOnly>
+          <ClientOnly>
+            {children}
+          </ClientOnly>
         </CMSProvider>
       </body>
     </html>

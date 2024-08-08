@@ -1,0 +1,27 @@
+.container {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+}
+
+.right {
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+
+.head {
+  width: 100%;
+  justify-content: center;
+  height: 10dvh;
+  background-color: var(--foregroundInverse400);
+}
+
+.body {
+  width: 100%;
+  flex: 1;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

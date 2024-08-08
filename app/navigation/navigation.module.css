@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.link {
+  all: unset;
+  width: 80%;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.flex {
+  align-items: center;
+}
+
+.selected {
+  width: 0rem;
+  height: 2rem;
+  background-color: var(--accent300);
+  margin-right: 0.5rem;
+  transition: all 0.3s;
+}
+
+.selected.visible {
+  width: 1rem;
+}
+
+.title {
+  margin-left: 0.25rem;
+}

@@ -2,6 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import { getFromLocalStorage } from "@/utils/storage";
+import { Flex } from "lumia-ui";
+import styles from "./prismLayout.module.css";
+import NavigationStack from "./navigation/navigation";
+import Header from "@/components/header/header";
+import LeftPanel from "@/components/leftPannel/LeftPanel";
 
 type ClientOnlyProps = {
   children: React.ReactNode;
@@ -35,11 +40,21 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
     fetchUser();
   }, []);
 
-  if (!decryptedUser && window.location.pathname !== "/login") {
+  if (!decryptedUser) {
     return null;
   }
 
-  return <>{children}</>;
+  return (
+    <Flex className={styles.container}>
+      <LeftPanel />
+      <Flex direction="column" className={styles.right}>
+        <Flex className={styles.head}>
+          <Header />
+        </Flex>
+        <Flex className={styles.body}>{children}</Flex>
+      </Flex>
+    </Flex>
+  );
 };
 
 export default ClientOnly;

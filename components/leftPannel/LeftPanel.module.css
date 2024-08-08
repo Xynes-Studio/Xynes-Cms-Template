@@ -1,0 +1,47 @@
+.container {
+  width: 15%;
+  height: 100%;
+  background-color: var(--foregroundInverse300);
+  position: relative;
+  align-items: center;
+}
+.header {
+  width: 90%;
+  height: 10dvh;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  height: 2rem !important;
+  object-fit: contain;
+}
+
+.notification {
+  width: 5dvh;
+  height: 5dvh;
+  background-color: var(--foregroundInverse400);
+  border-radius: 5dvh;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.navBar {
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.logout {
+  margin: 0px !important;
+  padding: 0px !important;
+  margin-bottom: 1rem !important;
+}
