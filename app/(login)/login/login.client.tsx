@@ -48,7 +48,7 @@ const LogInClient: React.FC = () => {
       });
       await saveToLocalStorage("user", JSON.stringify(response));
       if (path === "/login") {
-        router.replace("/");
+        window.location.replace("/");
       }
     } catch (error: any) {
       if (error.name === "AbortError") {
