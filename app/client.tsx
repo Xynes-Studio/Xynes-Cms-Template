@@ -6,7 +6,6 @@ import { Flex } from "lumia-ui";
 import styles from "./prismLayout.module.css";
 import Header from "@/components/header/header";
 import LeftPanel from "@/components/leftPannel/LeftPanel";
-import { usePathname, useRouter } from "next/navigation";
 import Loader from "@/components/load/load";
 
 type ClientOnlyProps = {
@@ -16,8 +15,6 @@ type ClientOnlyProps = {
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
   const [decryptedUser, setDecryptedUser] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
-  const path = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,18 +23,18 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
           const user = await getFromLocalStorage("user");
           if (user) {
             setDecryptedUser(user);
-            if (path === "/login") {
-              router.replace("/");
+            if (window.location.pathname === "/login") {
+              window.location.replace("/");
             }
           } else {
-            if (path !== "/login") {
-              router.replace("/login");
+            if (window.location.pathname  !== "/login") {
+              window.location.replace("/login");
             }
           }
         } catch (error) {
           console.error("Error fetching user from local storage:", error);
-          if (path !== "/login") {
-            router.replace("/login");
+          if (window.location.pathname  !== "/login") {
+            window.location.replace("/login");
           }
         }
       }
@@ -46,7 +43,7 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
     };
 
     fetchUser();
-  }, [path, router]);
+  }, []);
 
   if (isLoading) {
     return <Loader />;
