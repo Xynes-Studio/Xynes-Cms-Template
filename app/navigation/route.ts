@@ -4,6 +4,7 @@ export interface RouteTypes {
   link: string;
   title: string;
   icon?: React.FC<AssetProps>;
+  blog?: boolean;
 }
 
 export const routes: RouteTypes[] = [
@@ -16,6 +17,7 @@ export const routes: RouteTypes[] = [
     title: "Blogs",
     link: "/blogs",
     icon: LmCkReact,
+    blog: true,
   },
   {
     title: "About",

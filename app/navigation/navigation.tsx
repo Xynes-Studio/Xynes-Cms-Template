@@ -4,18 +4,25 @@ import { routes, RouteTypes } from "./route";
 import Link from "next/link";
 import styles from "./navigation.module.css";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const NavigationStack = () => {
+  const path = usePathname();
   return (
     <Flex className={styles.container} direction="column">
       {routes.map((item: RouteTypes) => {
         return (
-          <Link title={item.title} className={styles.link} href={item.link} key={item.link}>
+          <Link
+            title={item.title}
+            className={styles.link}
+            href={item.link}
+            key={item.link}
+          >
             <Flex className={styles.flex}>
               <div
                 className={cx(
                   styles.selected,
-                  window?.location?.pathname === item.link && styles.visible
+                  path === item.link && styles.visible
                 )}
               ></div>
               {item.icon && <LMAsset Asset={item.icon} size={0.8} />}
