@@ -1,0 +1,10 @@
+.container {
+  width: 100svw;
+  height: 100svh;
+}
+
+.editor {
+  flex: 1;
+  height: 100svh;
+  overflow-y: scroll;
+}

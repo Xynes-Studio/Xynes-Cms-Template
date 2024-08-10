@@ -1,0 +1,7 @@
+.container {
+  width: 90%;
+}
+
+.input {
+  background-color: var(--foregroundInverse300) !important;
+}

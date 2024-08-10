@@ -10,6 +10,7 @@ import {
 import Loader from "@/components/load/load";
 import { getFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
 import { usePathname, useRouter } from "next/navigation";
+import { BASE_URL } from "@/config/config";
 
 export interface UserResponse {
   active: boolean;
@@ -33,9 +34,7 @@ const LogInClient: React.FC = () => {
   const path = usePathname();
   const [loading, setLoading] = useState(false);
   const { alert } = useNotifications();
-  const apiService = new ApiService(
-    process.env.HOST || "https://blog.xynes.com/api"
-  );
+  const apiService = new ApiService(BASE_URL);
 
   const handleLogIn = async () => {
     setLoading(true);
