@@ -7,6 +7,7 @@ const Editor = () => {
   const params = useParams();
   const type = params.type;
   const props = params.props;
+  const isUpdate = props.length > 1;
 
   useEffect(() => {
     console.log(type, props, "this?");
