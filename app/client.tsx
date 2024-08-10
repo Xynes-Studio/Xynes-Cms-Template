@@ -7,6 +7,7 @@ import styles from "./prismLayout.module.css";
 import Header from "@/components/header/header";
 import LeftPanel from "@/components/leftPannel/LeftPanel";
 import Loader from "@/components/load/load";
+import { usePathname } from "next/navigation";
 
 type ClientOnlyProps = {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ type ClientOnlyProps = {
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
   const [decryptedUser, setDecryptedUser] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const path = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,13 +29,13 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
               window.location.replace("/");
             }
           } else {
-            if (window.location.pathname  !== "/login") {
+            if (window.location.pathname !== "/login") {
               window.location.replace("/login");
             }
           }
         } catch (error) {
           console.error("Error fetching user from local storage:", error);
-          if (window.location.pathname  !== "/login") {
+          if (window.location.pathname !== "/login") {
             window.location.replace("/login");
           }
         }
@@ -49,7 +51,7 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
     return <Loader />;
   }
 
-  if (!decryptedUser) {
+  if (!decryptedUser || path.indexOf("editor") !== -1) {
     return <>{children}</>;
   }
 
