@@ -56,9 +56,7 @@ export default function LogInLayout({
           " "
         )}
       >
-        <CMSProvider>
           {children}
-        </CMSProvider>
       </body>
     </html>
   );

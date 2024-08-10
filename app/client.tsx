@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import { getFromLocalStorage } from "@/utils/storage";
 import { Flex } from "lumia-ui";
 import styles from "./prismLayout.module.css";
-import NavigationStack from "./navigation/navigation";
 import Header from "@/components/header/header";
 import LeftPanel from "@/components/leftPannel/LeftPanel";
+import { usePathname, useRouter } from "next/navigation";
+import Loader from "@/components/load/load";
 
 type ClientOnlyProps = {
   children: React.ReactNode;
@@ -14,6 +15,9 @@ type ClientOnlyProps = {
 
 const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
   const [decryptedUser, setDecryptedUser] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  const path = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -22,26 +26,34 @@ const ClientOnly: React.FC<ClientOnlyProps> = ({ children }) => {
           const user = await getFromLocalStorage("user");
           if (user) {
             setDecryptedUser(user);
-            console.log("Decrypted user:", user);
+            if (path === "/login") {
+              router.replace("/");
+            }
           } else {
-            if (window.location.pathname !== "/login") {
-              window.location.replace("/login");
+            if (path !== "/login") {
+              router.replace("/login");
             }
           }
         } catch (error) {
           console.error("Error fetching user from local storage:", error);
-          if (window.location.pathname !== "/login") {
-            window.location.replace("/login");
+          if (path !== "/login") {
+            router.replace("/login");
           }
         }
       }
+
+      setIsLoading(false);
     };
 
     fetchUser();
-  }, []);
+  }, [path, router]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (!decryptedUser) {
-    return null;
+    return <>{children}</>;
   }
 
   return (

@@ -70,6 +70,6 @@ export const getFromLocalStorage = async (
     }
   } catch (error) {
     console.error("Decryption error:", error);
-    return null;
+    throw new Error("Failed to decrypt data.");
   }
 };
