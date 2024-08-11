@@ -25,9 +25,9 @@
 .customHeaderFour,
 .customHeaderFive,
 .customHeaderSix {
-  font-family: var(--header) !important;
+  font-family: var(--title) !important;
   font-weight: bold;
-  color: var(--headerColor) !important;
+  color: var(--foreground100) !important;
 }
 
 /* Specific styles */

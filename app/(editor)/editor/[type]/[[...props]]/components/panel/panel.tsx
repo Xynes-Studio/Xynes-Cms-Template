@@ -2,6 +2,7 @@ import { Button, Flex, Tabs, Text } from "lumia-ui";
 import styles from "./panel.module.css";
 import { PanelTabProperties, useEditor } from "@/context/editor/editorProvider";
 import EditorMeta from "./meta/meta";
+import Design from "./design/design";
 
 const panelTabs: PanelTabProperties[] = ["Design", "Meta"];
 
@@ -37,6 +38,7 @@ const Panel = () => {
       </Flex>
       <Flex direction='column' className={styles.content}>
         {selectedTab === "Meta" && <EditorMeta />}
+        {selectedTab === 'Design' && <Design />}
       </Flex>
     </Flex>
   );

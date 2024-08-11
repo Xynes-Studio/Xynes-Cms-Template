@@ -7,4 +7,5 @@
   flex: 1;
   height: 100svh;
   overflow-y: scroll;
+  align-items: center;
 }

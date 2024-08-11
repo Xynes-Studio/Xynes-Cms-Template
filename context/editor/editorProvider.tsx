@@ -18,20 +18,15 @@ interface EditorContextType {
   updateMeta: (updateMeta: Partial<Meta>) => void;
   editingEnabled: boolean;
   setEditingEnabled: (val: boolean) => void;
+  selectedItem: string | null;
+  setSelectedItem: (val: string | null) => void;
 }
 
 export type PanelTabProperties = "Design" | "Meta";
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
-const initialItems: BlogRenderItem[] = [
-  {
-    id: uuidv4(),
-    type: "text",
-    val: "",
-    placeholder: "Enter a Title",
-  },
-];
+const initialItems: BlogRenderItem[] = [];
 
 const EditorProvider: React.FC<{
   children: ReactNode;
@@ -41,6 +36,7 @@ const EditorProvider: React.FC<{
   const [editingEnabled, setEditingEnabled] = useState(true);
   const [type, setType] = useState<string | null>(null);
   const [selectedTab, setSelectedTab] = useState<PanelTabProperties>("Meta");
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const [meta, setMeta] = useState<Meta>({
     title: "",
     author: "",
@@ -88,6 +84,8 @@ const EditorProvider: React.FC<{
         updateMeta,
         editingEnabled,
         setEditingEnabled,
+        selectedItem,
+        setSelectedItem
       }}
     >
       {children}

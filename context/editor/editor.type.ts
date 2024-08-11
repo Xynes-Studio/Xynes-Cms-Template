@@ -1,6 +1,7 @@
+export type BlogContentTypes = "text" | "image" | "divider" | "code" | "youtube"
 export interface BlogRenderItem {
   id: string;
-  type: "text" | "image" | "divider" | "code" | "youtube";
+  type: BlogContentTypes;
   placeholder?: string;
   divider?: BlogRenderItem[];
   val: string;
