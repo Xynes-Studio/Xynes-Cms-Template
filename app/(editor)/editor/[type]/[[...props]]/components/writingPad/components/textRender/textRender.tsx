@@ -52,6 +52,13 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
     }
   };
 
+  const handleFocus = () => {
+    setSelectedItem(id);
+    if (editorStates[id]) {
+      setEditorState(id, editorStates[id]);
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       {editingEnabled ? (
@@ -60,7 +67,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
           editorState={editorStates[id]}
           onChange={onChange}
           onBlur={handleBlur}
-          onFocus={() => setSelectedItem(id)}
+          onFocus={handleFocus}
           blockStyleFn={blockStyleFn}
           placeholder={item.placeholder}
         />

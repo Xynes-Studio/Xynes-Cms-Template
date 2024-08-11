@@ -1,0 +1,12 @@
+.textarea{
+    width: 100%;
+    min-height: 4rem;
+    resize: none;
+    overflow: hidden;
+    font-size: 3.5rem;
+    line-height: 4rem;
+    box-sizing: border-box;
+    font-family: var(--body);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
