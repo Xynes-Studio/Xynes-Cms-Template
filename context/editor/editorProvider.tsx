@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { BlogRenderItem, Meta } from "./editor.type";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 interface EditorContextType {
   items: BlogRenderItem[];
@@ -15,17 +16,29 @@ interface EditorContextType {
   setSelectedTab: (val: "Design" | "Meta") => void;
   meta: Meta;
   updateMeta: (updateMeta: Partial<Meta>) => void;
+  editingEnabled: boolean;
+  setEditingEnabled: (val: boolean) => void;
 }
 
 export type PanelTabProperties = "Design" | "Meta";
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
 
+const initialItems: BlogRenderItem[] = [
+  {
+    id: uuidv4(),
+    type: "text",
+    val: "",
+    placeholder: "Enter a Title",
+  },
+];
+
 const EditorProvider: React.FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  const [items, setItems] = useState<BlogRenderItem[]>([]);
+  const [items, setItems] = useState<BlogRenderItem[]>(initialItems);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [editingEnabled, setEditingEnabled] = useState(true);
   const [type, setType] = useState<string | null>(null);
   const [selectedTab, setSelectedTab] = useState<PanelTabProperties>("Meta");
   const [meta, setMeta] = useState<Meta>({
@@ -73,6 +86,8 @@ const EditorProvider: React.FC<{
         setSelectedTab,
         meta,
         updateMeta,
+        editingEnabled,
+        setEditingEnabled,
       }}
     >
       {children}

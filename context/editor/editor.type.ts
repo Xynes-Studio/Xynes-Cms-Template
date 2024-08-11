@@ -1,6 +1,7 @@
 export interface BlogRenderItem {
   id: string;
   type: "text" | "image" | "divider" | "code" | "youtube";
+  placeholder?: string;
   divider?: BlogRenderItem[];
   val: string;
 }

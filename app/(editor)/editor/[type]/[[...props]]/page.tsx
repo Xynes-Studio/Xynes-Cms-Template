@@ -6,6 +6,7 @@ import styles from "./editor.module.css";
 import Panel from "./components/panel/panel";
 import { useEditor } from "@/context/editor/editorProvider";
 import { useEffect } from "react";
+import WritingPad from "./components/writingPad/writingPad";
 
 const Editor = () => {
   const params = useParams();
@@ -24,7 +25,9 @@ const Editor = () => {
 
   return (
     <Flex className={styles.container}>
-      <div className={styles.editor}></div>
+      <Flex direction='column' className={styles.editor}>
+        <WritingPad/>
+      </Flex>
       <Panel />
     </Flex>
   );

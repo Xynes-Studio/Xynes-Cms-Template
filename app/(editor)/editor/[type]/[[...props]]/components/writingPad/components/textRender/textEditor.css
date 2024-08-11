@@ -1,0 +1,14 @@
+.customUnstyled,
+.customParagraph {
+  font-family: var(--body) !important;
+  size: 1rem !important;
+  color: var(--foreground) !important;
+}
+
+.public-DraftEditorPlaceholder-root {
+  position: absolute;
+  color: rgba(0, 0, 0, 0.4); /* Placeholder text color */
+  pointer-events: none; /* Ensure the placeholder is not interactive */
+  padding-left: 2px;
+  font-family: var(--body) !important;
+}

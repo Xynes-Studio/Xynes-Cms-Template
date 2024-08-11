@@ -76,6 +76,17 @@ body {
   top: 0;
 }
 
+p {
+  font-family: var(--body) !important;
+  size: 1rem !important;
+  color: var(--foreground) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--title) !important;
+  color: var(--foreground200) !important;
+}
+
 textarea {
   border: none;
   outline: none;

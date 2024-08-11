@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+  min-height: 10svh;
+  height: auto;
+  position: relative;
+}
+
+.viewer {
+  width: 100%;
+}

@@ -8,6 +8,25 @@ export const metadata: Metadata = {
   description: "A dynamic CMS set-up that adapts to different use cases.",
 };
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--body",
+});
+const title = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--title",
+});
+const afronaut = localFont({
+  src: [
+    {
+      path: "../fonts/Afronaut.otf",
+    },
+  ],
+  variable: "--header",
+});
+
 export default function EditorLayout({
   children,
 }: Readonly<{
@@ -15,7 +34,13 @@ export default function EditorLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={[poppins.variable, afronaut.variable, title.variable].join(
+          " "
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
