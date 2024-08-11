@@ -1,10 +1,3 @@
-.customUnstyled,
-.customParagraph {
-  font-family: var(--body) !important;
-  size: 1rem !important;
-  color: var(--foreground) !important;
-}
-
 .public-DraftEditorPlaceholder-root {
   position: absolute;
   color: rgba(0, 0, 0, 0.4); /* Placeholder text color */
@@ -12,3 +5,74 @@
   padding-left: 2px;
   font-family: var(--body) !important;
 }
+
+/* Base styles for all blocks */
+.blockBase,
+.customUnstyled,
+.customParagraph,
+.customUnorderedListItem,
+.customOrderedListItem {
+  font-family: var(--body) !important;
+  color: var(--foreground) !important;
+  margin-bottom: 10px;
+}
+
+/* Base styles for all headers */
+.headerBase,
+.customHeaderOne,
+.customHeaderTwo,
+.customHeaderThree,
+.customHeaderFour,
+.customHeaderFive,
+.customHeaderSix {
+  font-family: var(--header) !important;
+  font-weight: bold;
+  color: var(--headerColor) !important;
+}
+
+/* Specific styles */
+.customUnstyled,
+.customParagraph {
+  font-size: 1rem !important;
+}
+
+.customHeaderOne {
+  font-size: 2.5rem !important;
+  margin-bottom: 15px;
+}
+
+.customHeaderTwo {
+  font-size: 2rem !important;
+  margin-bottom: 12px;
+}
+
+.customHeaderThree {
+  font-size: 1.75rem !important;
+  margin-bottom: 10px;
+}
+
+.customHeaderFour {
+  font-size: 1.5rem !important;
+  margin-bottom: 8px;
+}
+
+.customHeaderFive {
+  font-size: 1.25rem !important;
+  margin-bottom: 6px;
+}
+
+.customHeaderSix {
+  font-size: 1rem !important;
+  margin-bottom: 4px;
+}
+
+.customUnorderedListItem {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.customOrderedListItem {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
