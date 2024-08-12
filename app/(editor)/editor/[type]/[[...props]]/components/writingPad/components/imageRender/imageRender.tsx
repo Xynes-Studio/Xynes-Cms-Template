@@ -32,8 +32,6 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
   const handleError = useCallback(
     (title: string, description: string) => {
-      console.log(imageItem, item.val.length, "handleError");
-
       if (!imageItem && item.val.length === 0) {
         const newNotification: Notification = {
           title: title,
@@ -53,14 +51,13 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
       initialRender.current = false; // Mark as done after the first render
       return;
     }
-    console.log(imageItem, item.val.length, loading, "dasdas");
 
     if (!imageItem && item.val.length === 0) {
-      if (!loading && items[items.length-1].type === 'image') {
+      if (!loading && items[items.length - 1].type === "image") {
         inputRef.current?.click();
-      } 
+      }
     }
-  }, [handleError, imageItem, item.val, loading]);
+  }, [handleError, imageItem, item.val, items, loading]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileObj = event.target.files && event.target.files[0];
@@ -131,7 +128,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
         <img
           alt="Meta Image"
           src={imageItem?.src ? imageItem.src : "/image.webp"}
-          className={cx(styles.img) }
+          className={cx(styles.img)}
         />
         {editingEnabled && (
           <button

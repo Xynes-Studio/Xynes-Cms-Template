@@ -3,9 +3,9 @@ import styles from "./titleRender.module.css";
 import { useEditor } from "@/context/editor/editorProvider";
 
 const TitleRender = () => {
-  const { meta, updateMeta } = useEditor();
+  const { meta, updateMeta, editingEnabled } = useEditor();
   const text = meta.title;
-  const maxLength = 100;
+  const maxLength = 120;
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,15 +23,21 @@ const TitleRender = () => {
   }, [text]);
 
   return (
-    <textarea
-      ref={textareaRef}
-      value={text}
-      onChange={handleChange}
-      className={styles.textarea}
-      rows={1}
-      placeholder="Write a title..."
-      maxLength={maxLength}
-    />
+    <>
+      {editingEnabled ? (
+        <textarea
+          ref={textareaRef}
+          value={text}
+          onChange={handleChange}
+          className={styles.textarea}
+          rows={1}
+          placeholder="Write a title..."
+          maxLength={maxLength}
+        />
+      ) : (
+        <h1 className={styles.textarea}>{text}</h1>
+      )}
+    </>
   );
 };
 
