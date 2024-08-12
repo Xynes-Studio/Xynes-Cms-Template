@@ -31,7 +31,7 @@ export const TextEditorProvider: React.FC<{ children: ReactNode }> = ({
   const [editorStates, setEditorStates] = useState<{
     [key: string]: EditorState;
   }>({});
-  const { updateItem, selectedItem } = useEditor();
+  const { updateItem } = useEditor();
   const [currentInlineStyles, setCurrentInlineStyles] = useState<DraftInlineStyle | null>(null);
   const [currentBlockType, setCurrentBlockType] = useState<string>("");
 

@@ -8,17 +8,10 @@ import { useEffect, useState } from "react";
 
 const Design = () => {
   const { selectedItem, items } = useEditor();
-  const [type, setType] = useState<BlogContentTypes | null>(null);
 
-  useEffect(() => {
-    if (selectedItem) {
-      const type = items.filter((i: BlogRenderItem) => i.id === selectedItem)[0]
-        .type;
-      setType(type || null);
-    } else {
-      setType(null);
-    }
-  }, [selectedItem, items, setType]);
+  const type = selectedItem
+    ? items.filter((i: BlogRenderItem) => i.id === selectedItem)[0].type
+    : null;
 
   return (
     <Flex direction="column" className={styles.container}>
