@@ -1,6 +1,6 @@
 "use client";
 import { Button, cx, email, Flex, password, TextInput } from "lumia-ui";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./login.module.css";
 import ApiService from "@/services/apiService";
 import {
@@ -8,7 +8,7 @@ import {
   useNotifications,
 } from "@/context/notifications/notificationsProvider";
 import Loader from "@/components/load/load";
-import { getFromLocalStorage, saveToLocalStorage } from "@/utils/storage";
+import { saveToLocalStorage } from "@/utils/storage";
 import { usePathname, useRouter } from "next/navigation";
 import { BASE_URL } from "@/config/config";
 
