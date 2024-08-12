@@ -17,7 +17,7 @@ const Panel = () => {
         </Text>
         <Button
           label={isUpdate ? "Update" : "Post"}
-          color="var(--foregroundInverse)"
+          color="var(--foregroundInverse) !important"
           backgroundColor="var(--accent100)"
           title={isUpdate ? "Update" : "Publish"}
         />
@@ -31,7 +31,7 @@ const Panel = () => {
               selected={i === selectedTab}
               selectType="select-200"
               onClick={() => setSelectedTab(i)}
-              color={i === selectedTab ? "var(--app)" : "var(--foreground)"}
+              color={i === selectedTab ? "var(--foregroundInverse) !important" : "var(--foreground)"}
             />
           );
         })}
