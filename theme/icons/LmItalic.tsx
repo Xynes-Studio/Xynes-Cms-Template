@@ -19,7 +19,7 @@ export const LmItalic: React.FC<AssetProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M22 10h12M14 38h12m2-28-8 28"/>
+      <path stroke={color} stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M22 10h12M14 38h12m2-28-8 28"/>
     </svg>
   );
 };

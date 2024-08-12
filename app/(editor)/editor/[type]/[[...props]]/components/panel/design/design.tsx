@@ -9,19 +9,11 @@ import { useEffect, useState } from "react";
 const Design = () => {
   const { selectedItem, items } = useEditor();
   const [type, setType] = useState<BlogContentTypes | null>(null);
-  // const type = items.filter((i: BlogRenderItem) => i.id === selectedItem)[0]
-  //   .type;
-
-  // useEffect(() => {
-  //   console.log(type, "type");
-  // }, [type]);
 
   useEffect(() => {
     if (selectedItem) {
       const type = items.filter((i: BlogRenderItem) => i.id === selectedItem)[0]
         .type;
-      console.log("type", type);
-
       setType(type || null);
     } else {
       setType(null);

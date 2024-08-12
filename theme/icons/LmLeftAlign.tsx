@@ -19,7 +19,7 @@ export const LmLeftAlign: React.FC<AssetProps> = ({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 14h36M6 24h24M6 34h8"/>
+      <path stroke={color} stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 14h36M6 24h24M6 34h8"/>
     </svg>
   );
 };
