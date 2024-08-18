@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEditor } from "@/context/editor/editorProvider";
 import styles from "./imageRender.module.css";
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -20,15 +19,29 @@ export interface ImageItem {
 }
 
 const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
-  const { updateItem, deleteItem, editingEnabled, items } = useEditor();
+  const {
+    updateItem,
+    deleteItem,
+    editingEnabled,
+    items,
+    selectedItem,
+    setSelectedItem,
+  } = useEditor();
   const { alert } = useNotifications();
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLButtonElement>(null); // Ref for the Flex component
   const accepted = "jpeg, png, webp, heic";
   const [imageItem, setImageItem] = useState<ImageItem | null>(
     item.val.length > 0 ? JSON.parse(item.val) : null
   );
   const [loading, setLoading] = useState<boolean>(false);
   const initialRender = useRef(true); // Track initial render
+
+  useEffect(() => {
+    if (item.val.length > 0) {
+      setImageItem(JSON.parse(item.val));
+    }
+  }, [item]);
 
   const handleError = useCallback(
     (title: string, description: string) => {
@@ -107,7 +120,41 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
     setImageItem(updatedItem);
     setLoading(false);
     updateItem(item.id, { val: JSON.stringify(updatedItem) });
+    handleSelectedItem();
   };
+
+  const handleSelectedItem = () => {
+    if (selectedItem === item.id) {
+      // setSelectedItem(null);
+      return;
+    } else {
+      setSelectedItem(item.id);
+    }
+  };
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        selectedItem === item.id &&
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setSelectedItem(null); // Deselect if click is outside the Flex container
+      }
+    },
+    [selectedItem, item.id, containerRef, setSelectedItem]
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 0);
+    
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
     <>
@@ -124,16 +171,18 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
           imageItem?.type === "small" && styles.small,
           imageItem?.type === "banner" && styles.banner
         )}
+        onClick={handleSelectedItem}
       >
         <img
           alt="Meta Image"
           src={imageItem?.src ? imageItem.src : "/image.webp"}
           className={cx(styles.img)}
         />
-        {editingEnabled && (
+        {editingEnabled && selectedItem === item.id && (
           <button
             onDoubleClick={() => inputRef.current?.click()}
             className={styles.overlayButton}
+            ref={containerRef}
           >
             <Flex direction="column" className={styles.overlay}>
               <LMAsset Asset={LmImage} size={0.7} />

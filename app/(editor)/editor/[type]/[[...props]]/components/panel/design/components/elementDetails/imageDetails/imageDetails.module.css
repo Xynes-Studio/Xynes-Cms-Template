@@ -1,0 +1,20 @@
+.caption {
+  width: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.element {
+  margin: 0px !important;
+  padding: 0px !important;
+  margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.element > div {
+  padding: 0px !important;
+}
+
+.wrapper {
+  align-self: center;
+}

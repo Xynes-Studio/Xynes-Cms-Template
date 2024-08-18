@@ -30,8 +30,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  z-index: -9;
-  opacity: 0;
+  z-index: 1;
+  opacity: 1;
   transition: all 0.3s;
 }
 
@@ -45,9 +45,5 @@
 
 .text {
   margin-top: 1rem;
-}
-
-.container:hover .overlayButton {
-  z-index: 1;
-  opacity: 1;
+  color: var(--foregroundInverse) !important;
 }
