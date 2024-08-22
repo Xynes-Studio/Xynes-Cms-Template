@@ -79,7 +79,7 @@ body {
 p {
   font-family: var(--body) !important;
   size: 1rem !important;
-  color: var(--foreground) !important;
+  color: var(--foreground);
 }
 
 h1, h2, h3, h4, h5, h6 {

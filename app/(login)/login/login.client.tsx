@@ -79,7 +79,8 @@ const LogInClient: React.FC = () => {
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             validations={[email]}
-            label="Enter your Email."
+            label="Email"
+            placeholder="Enter Your Email"
           />
         </div>
         <div className={styles.input}>
@@ -90,7 +91,8 @@ const LogInClient: React.FC = () => {
             className={styles.inputInside}
             onChange={(e) => setUserPassword(e.target.value)}
             validations={[password.moderate]}
-            label="Enter your password."
+            label="Password"
+            placeholder="Enter Your Password"
           />
         </div>
         {loading ? (
