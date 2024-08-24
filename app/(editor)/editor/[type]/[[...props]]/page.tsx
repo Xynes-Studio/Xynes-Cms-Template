@@ -7,6 +7,7 @@ import styles from "./editor.module.css";
 import Panel from "./components/panel/panel";
 import { useEditor } from "@/context/editor/editorProvider";
 import WritingPad from "./components/writingPad/writingPad";
+import { useTextEditorContext } from "@/context/textEditor/textEditorProvider";
 
 export const editorRef = createRef<HTMLDivElement>();
 

@@ -53,6 +53,16 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
     }
   };
 
+  const handleBlur = () => {
+    if (editorStates[id]) {
+      const val = editorStates[id].getCurrentContent().getPlainText();
+
+      setTimeout(() => {
+        val.length === 0 && deleteItem(item.id);
+      }, 300);
+    }
+  };
+
   return (
     <div onClick={handleMouseDownChild} className={styles.wrapper}>
       {editingEnabled ? (
@@ -61,6 +71,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
           editorState={editorStates[id]}
           onChange={onChange}
           onFocus={handleFocus}
+          onBlur={handleBlur}
           blockStyleFn={blockStyleFn}
           placeholder={item.placeholder}
         />
