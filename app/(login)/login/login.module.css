@@ -14,12 +14,12 @@
 }
 
 .input {
-  width: 20dvw !important;
+  width: 25dvw !important;
   margin-top: 1rem;
 }
 
 .inputInside{
-    height: 1.5rem;
+    height: 2.5rem;
 }
 
 .button {

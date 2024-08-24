@@ -6,3 +6,11 @@
   justify-content: space-between;
 }
 
+.search{
+  padding: 2px;
+  border: none;
+  background-color: var(--foregroundInverse);
+}
+.search:focus{
+  border: none;
+}

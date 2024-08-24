@@ -37,7 +37,7 @@ const LeftPanel = () => {
         type="label"
         icon={LmLogOut}
         onClick={handleLogOut}
-        label="Sign Out"
+        label="Sign Out "
         iconAtEnd
         className={styles.logout}
       />
