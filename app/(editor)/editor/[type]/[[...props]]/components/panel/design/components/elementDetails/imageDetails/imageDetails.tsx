@@ -8,6 +8,7 @@ import { LmBannerImg } from "@/theme/icons/LmBannerImg";
 import { LmFullImg } from "@/theme/icons/LmFullImg";
 import { ImageItem } from "../../../../../writingPad/components/imageRender/imageRender";
 import { BlogRenderItem } from "@/context/editor/editor.type";
+import { handleMouseDownChild } from "../textDetails/textDetails";
 
 export interface ImageDetailsArrayProp {
   id: string;
@@ -40,11 +41,16 @@ const ImageDetailsArray: ImageDetailsArrayProp[] = [
 const ImageDetails = () => {
   const { selectedItem, items, updateItem } = useEditor();
 
-  const handleClick = (item: ImageDetailsArrayProp) => {
+  const handleClick = (
+    item: ImageDetailsArrayProp,
+    event?: React.MouseEvent
+  ) => {
+    if (event) {
+      event.stopPropagation();
+    }
     const imageItem = items.filter(
       (i: BlogRenderItem) => i.id === selectedItem
     )[0];
-    
 
     if (imageItem.type === "image" && selectedItem) {
       let ImgOBJ: ImageItem = JSON.parse(imageItem.val);
@@ -55,10 +61,6 @@ const ImageDetails = () => {
     } else {
       return;
     }
-  };
-
-  const handleMouseDown = (event: React.MouseEvent) => {
-    event.preventDefault(); // Prevent the button from focusing
   };
 
   return (
@@ -75,7 +77,6 @@ const ImageDetails = () => {
               icon={item.icon}
               className={styles.element}
               onClick={() => handleClick(item)}
-              onMouseDown={handleMouseDown}
               key={item.id}
             />
           );

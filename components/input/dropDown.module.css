@@ -1,13 +1,13 @@
-.label{
-    margin-bottom: 0.5rem;
+.label {
+  margin-bottom: 0.5rem;
 }
 
-.select{
-    border-width: 1px;
-    border-style: solid;
-    border-color: light-dark(rgb(175, 175, 175), rgb(180, 180, 180));
-    border-image: initial;
-    border-radius: 0px;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
+.select {
+  border-width: 1px;
+  border-style: solid;
+  border-color: light-dark(rgb(175, 175, 175), rgb(180, 180, 180));
+  border-image: initial;
+  border-radius: 0px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
