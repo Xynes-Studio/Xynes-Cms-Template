@@ -9,7 +9,7 @@ import React, {
 import { DraftInlineStyle, EditorState, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import { useEditor } from "../editor/editorProvider";
-
+import { textTypes } from "@/app/(editor)/editor/[type]/[[...props]]/components/panel/design/components/elementDetails/textDetails/textDetails";
 
 interface TextEditorContextType {
   editorStates: { [key: string]: EditorState };
@@ -19,6 +19,8 @@ interface TextEditorContextType {
   handleKeyCommand: (id: string, command: string) => void;
   currentInlineStyles: DraftInlineStyle | null;
   currentBlockType: string;
+  textType: string;
+  setTextType: (type: string) => void;
 }
 
 const TextEditorContext = createContext<TextEditorContextType | undefined>(
@@ -32,8 +34,10 @@ export const TextEditorProvider: React.FC<{ children: ReactNode }> = ({
     [key: string]: EditorState;
   }>({});
   const { updateItem } = useEditor();
-  const [currentInlineStyles, setCurrentInlineStyles] = useState<DraftInlineStyle | null>(null);
+  const [currentInlineStyles, setCurrentInlineStyles] =
+    useState<DraftInlineStyle | null>(null);
   const [currentBlockType, setCurrentBlockType] = useState<string>("");
+  const [textType, setTextType] = useState<string>(textTypes[0]);
 
   // Debounce the updateItem function
   const debounceUpdate = useCallback(
@@ -59,7 +63,9 @@ export const TextEditorProvider: React.FC<{ children: ReactNode }> = ({
     setCurrentInlineStyles(inlineStyles);
 
     // Update the current block type
-    const blockType = contentState.getBlockForKey(selectionState.getStartKey()).getType();
+    const blockType = contentState
+      .getBlockForKey(selectionState.getStartKey())
+      .getType();
     setCurrentBlockType(blockType);
 
     if (editorStates[id]) {
@@ -96,6 +102,8 @@ export const TextEditorProvider: React.FC<{ children: ReactNode }> = ({
         handleKeyCommand,
         currentInlineStyles, // Provide the current inline styles in the context
         currentBlockType, // Provide the current block type in the context
+        textType, // Provide the text type in the context
+        setTextType, // Provide the setTextType function in the context
       }}
     >
       {children}

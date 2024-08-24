@@ -19,8 +19,9 @@ interface EditorContextType {
   editingEnabled: boolean;
   setEditingEnabled: (val: boolean) => void;
   selectedItem: string | null;
-  setSelectedItem: (val: string | null) => void;
+  updateSelectedItem: (val: string | null) => void;
 }
+
 
 export type PanelTabProperties = "Design" | "Meta";
 
@@ -67,6 +68,10 @@ const EditorProvider: React.FC<{
     setMeta((prevMeta) => ({ ...prevMeta, ...updatedMeta }));
   };
 
+  const updateSelectedItem = (val:string | null) =>{
+    setSelectedItem(val);
+  }
+
   return (
     <EditorContext.Provider
       value={{
@@ -85,13 +90,14 @@ const EditorProvider: React.FC<{
         editingEnabled,
         setEditingEnabled,
         selectedItem,
-        setSelectedItem
+        updateSelectedItem
       }}
     >
       {children}
     </EditorContext.Provider>
   );
 };
+
 
 const useEditor = () => {
   const context = useContext(EditorContext);

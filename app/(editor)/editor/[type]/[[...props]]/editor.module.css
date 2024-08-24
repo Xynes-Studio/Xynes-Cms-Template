@@ -9,3 +9,8 @@
   overflow-y: scroll;
   align-items: center;
 }
+
+.panel{
+  width: fit-content;
+  height: fit-content;
+}

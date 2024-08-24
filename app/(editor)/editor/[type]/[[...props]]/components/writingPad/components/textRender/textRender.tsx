@@ -7,13 +7,14 @@ import { useEditor } from "@/context/editor/editorProvider";
 import styles from "./textRender.module.css";
 import { blockStyleFn } from "./returnEditorClass";
 import "./textEditor.css";
+import { handleMouseDownChild } from "../../../panel/design/components/elementDetails/textDetails/textDetails";
 interface TextEditorProps {
   item: BlogRenderItem;
 }
 
 const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
   const { editorStates, setEditorState } = useTextEditorContext();
-  const { editingEnabled, setSelectedItem, deleteItem } = useEditor();
+  const { editingEnabled, updateSelectedItem, deleteItem } = useEditor();
   const id = item.id;
   const editorRef = useRef<Editor | null>(null);
 
@@ -44,29 +45,21 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
     setEditorState(id, newEditorState);
   };
 
-  const handleBlur = () => {
-    setSelectedItem(null);
-    if (editorStates[id]) {
-      const val = editorStates[id].getCurrentContent().getPlainText();
-      val.length === 0 && deleteItem(item.id);
-    }
-  };
-
-  const handleFocus = () => {
-    setSelectedItem(id);
+  const handleFocus = (event: React.FocusEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    updateSelectedItem(id);
     if (editorStates[id]) {
       setEditorState(id, editorStates[id]);
     }
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div onClick={handleMouseDownChild} className={styles.wrapper}>
       {editingEnabled ? (
         <Editor
           ref={editorRef}
           editorState={editorStates[id]}
           onChange={onChange}
-          onBlur={handleBlur}
           onFocus={handleFocus}
           blockStyleFn={blockStyleFn}
           placeholder={item.placeholder}

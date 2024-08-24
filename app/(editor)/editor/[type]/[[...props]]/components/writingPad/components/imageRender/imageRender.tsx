@@ -25,7 +25,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
     editingEnabled,
     items,
     selectedItem,
-    setSelectedItem,
+    updateSelectedItem,
   } = useEditor();
   const { alert } = useNotifications();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -125,36 +125,12 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
   const handleSelectedItem = () => {
     if (selectedItem === item.id) {
-      // setSelectedItem(null);
+      // updateSelectedItem(null);
       return;
     } else {
-      setSelectedItem(item.id);
+      updateSelectedItem(item.id);
     }
   };
-
-  const handleClickOutside = useCallback(
-    (event: MouseEvent) => {
-      if (
-        selectedItem === item.id &&
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setSelectedItem(null); // Deselect if click is outside the Flex container
-      }
-    },
-    [selectedItem, item.id, containerRef, setSelectedItem]
-  );
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.addEventListener("click", handleClickOutside);
-    }, 0);
-    
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [handleClickOutside]);
 
   return (
     <>

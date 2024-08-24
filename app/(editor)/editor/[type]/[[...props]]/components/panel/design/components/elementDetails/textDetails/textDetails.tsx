@@ -7,6 +7,7 @@ import { LmOl } from "@/theme/icons/LmOl";
 import { LmUl } from "@/theme/icons/LmUl";
 import { useTextEditorContext } from "@/context/textEditor/textEditorProvider";
 import { useEditor } from "@/context/editor/editorProvider";
+import DropDown from "@/components/input/dropDown";
 
 export interface TextStylesProps {
   type: "BOLD" | "ITALIC" | "ordered-list-item" | "unordered-list-item";
@@ -14,6 +15,20 @@ export interface TextStylesProps {
   title: string;
   itemType: "block" | "inline";
 }
+
+export const textTypes: string[] = [
+  "Heading 1",
+  "Heading 2",
+  "Heading 3",
+  "Heading 4",
+  "Heading 5",
+  "Heading 6",
+  "Normal Text",
+];
+
+export const handleMouseDownChild = (event: React.MouseEvent) => {
+  event.stopPropagation(); // Prevent the button from focusing
+};
 
 const textStyles: TextStylesProps[] = [
   {
@@ -48,6 +63,8 @@ const TextDetails = () => {
     toggleInlineStyle,
     currentBlockType,
     currentInlineStyles,
+    textType,
+    setTextType,
   } = useTextEditorContext();
   const { selectedItem } = useEditor();
 
@@ -60,12 +77,17 @@ const TextDetails = () => {
       }
   };
 
-  const handleMouseDown = (event: React.MouseEvent) => {
-    event.preventDefault(); // Prevent the button from focusing
+  const handleDDChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTextType = e.target.value;
+    setTextType(selectedTextType);
   };
 
   return (
-    <Flex className={styles.container} direction="column">
+    <Flex
+      onClick={handleMouseDownChild}
+      className={styles.container}
+      direction="column"
+    >
       <Text className={styles.caption} type="caption">
         Text Properties:
       </Text>
@@ -74,7 +96,6 @@ const TextDetails = () => {
           return (
             <Button
               onClick={() => handleTextStyleClicks(i)}
-              onMouseDown={handleMouseDown}
               type={
                 currentInlineStyles?.has(i.type) || currentBlockType === i.type
                   ? "fill"
@@ -94,6 +115,12 @@ const TextDetails = () => {
           );
         })}
       </Flex>
+      <DropDown
+        data={textTypes}
+        value={textType}
+        onChange={handleDDChange}
+        label="Text Type:"
+      />
     </Flex>
   );
 };
