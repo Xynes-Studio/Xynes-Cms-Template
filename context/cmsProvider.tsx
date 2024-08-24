@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { NotificationsProvider } from "./notifications/notificationsProvider";
 import { EditorProvider } from "./editor/editorProvider";
 import { TextEditorProvider } from "./textEditor/textEditorProvider";
+import { ModalProvider } from "./modals/modalProvider";
 
 export const CMSProvider: React.FC<{
   children: React.ReactNode;
@@ -13,11 +14,13 @@ export const CMSProvider: React.FC<{
   return (
     <LumiaProvider theme={cmsTheme}>
       <NotificationsProvider>
-        <EditorProvider>
-          <TextEditorProvider>
-            <ThemeProvider theme={cmsTheme}>{children}</ThemeProvider>
-          </TextEditorProvider>
-        </EditorProvider>
+        <ModalProvider>
+          <EditorProvider>
+            <TextEditorProvider>
+              <ThemeProvider theme={cmsTheme}>{children}</ThemeProvider>
+            </TextEditorProvider>
+          </EditorProvider>
+        </ModalProvider>
       </NotificationsProvider>
     </LumiaProvider>
   );

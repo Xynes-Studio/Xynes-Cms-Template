@@ -1,84 +1,112 @@
-import { createContext, useContext, useState, ReactNode } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { Modal } from "lumia-ui";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
-interface CustomModalsProviderProps {
-  children: ReactNode;
-}
-
-export interface AssetProps extends React.SVGProps<SVGSVGElement> {
-  size?: number;
-  color?: string;
-}
-
-export interface Modal {
-  id?: string;
-  type?: "default" | "flat" | "outlined";
-  status?: "success" | "warning" | "error";
-  title: string;
+interface ModalOptions {
+  content?: ReactNode;
+  primaryBtnText?: string;
+  secondaryBtnText?: string;
+  primaryBtnFeedback?: () => void;
+  secondaryBtnFeedback?: () => void;
+  title?: string;
   description?: string;
-  date?: Date;
-  read?: boolean;
-  icon?: React.FC<AssetProps>;
-  image?: string;
 }
 
-export interface ModalState {
-  modals: Modal[];
-  unreadCount: number;
-  newModals: Modal[] | null; // Ensure this is nullable
-  alert: (item?: Modal) => void;
-  readModal: () => void;
+interface ModalContextType {
+  isVisible: boolean;
+  showModal: (options: ModalOptions) => void;
+  hideModal: () => void;
 }
 
-const ModalsContext = createContext<ModalState>({
-  modals: [],
-  unreadCount: 0,
-  newModals: [],
-  alert: () => {},
-  readModal: () => {},
-});
+const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalsProvider = ({
+export const useModal = (): ModalContextType => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error("useModal must be used within a ModalProvider");
+  }
+  return context;
+};
+
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
-}: CustomModalsProviderProps) => {
-  const [currentModals, setCurrentModals] = useState<
-    Modal[]
-  >([]);
-  const [newModals, setNewModals] = useState<Modal[]>([]);
-
-  const alert = (item?: Modal) => {
-    if (item) {
-      setNewModals([{ id: uuidv4(), date: new Date(), ...item }, ...newModals]);
-    } else {
-      return null;
-    }
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [content, setContent] = useState<ReactNode | null>(null);
+  const hideModal = () => {
+    setIsVisible(false);
+    setContent(null);
+    setPrimaryBtnText("Confirm");
+    setSecondaryBtnText("Cancel");
+    setPrimaryBtnFeedback(() => hideModal);
+    setSecondaryBtnFeedback(() => hideModal);
+    setTitle(undefined);
+    setDescription(undefined);
   };
-  const readModal = () => {
-    setCurrentModals([...newModals, ...currentModals]);
-    setNewModals([]);
+  const [primaryBtnFeedback, setPrimaryBtnFeedback] = useState<
+    () => void | undefined
+  >(() => hideModal);
+  const [secondaryBtnFeedback, setSecondaryBtnFeedback] = useState<
+    () => void | undefined
+  >(() => hideModal);
+  const [primaryBtnText, setPrimaryBtnText] = useState<string>("Confirm");
+  const [secondaryBtnText, setSecondaryBtnText] = useState<string>("Cancel");
+  const [title, setTitle] = useState<string | undefined>();
+  const [description, setDescription] = useState<string | undefined>();
+
+  const showModal = ({
+    content = null,
+    primaryBtnText = "Confirm",
+    secondaryBtnText = "Cancel",
+    primaryBtnFeedback = hideModal,
+    secondaryBtnFeedback = hideModal,
+    title,
+    description,
+  }: ModalOptions) => {
+    console.log("calling inside");
+
+    setContent(content);
+    setPrimaryBtnText(primaryBtnText);
+    setSecondaryBtnText(secondaryBtnText);
+    setPrimaryBtnFeedback(() => primaryBtnFeedback);
+    setSecondaryBtnFeedback(() => secondaryBtnFeedback);
+    setTitle(title);
+    setDescription(description);
+    setIsVisible(true);
   };
 
+  useEffect(() => {
+    console.log(isVisible, "isVisible");
+  }, [isVisible]);
   return (
-    <ModalsContext.Provider
+    <ModalContext.Provider
       value={{
-        modals: currentModals,
-        newModals,
-        unreadCount: newModals.length,
-        alert,
-        readModal,
+        isVisible,
+        showModal,
+        hideModal,
       }}
     >
       {children}
-    </ModalsContext.Provider>
+      <Modal
+        visible={isVisible}
+        onClose={hideModal}
+        closeIcon
+        primaryBtnOnPress={primaryBtnFeedback}
+        secondaryBtnOnPress={secondaryBtnFeedback}
+        primaryBtnLabel={primaryBtnText}
+        secondaryBtnLabel={secondaryBtnText}
+        actionBtnType='both'
+        actionBtnAlign='center'
+        title={title}
+        description={description}
+      >
+        {content}
+      </Modal>
+    </ModalContext.Provider>
   );
-};
-
-export const useModals = () => {
-  const context = useContext(ModalsContext);
-  if (context === undefined) {
-    throw new Error(
-      "useModals must be used within a ModalsProvider"
-    );
-  }
-  return context;
 };
