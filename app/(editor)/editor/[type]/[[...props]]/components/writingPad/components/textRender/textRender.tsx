@@ -56,10 +56,10 @@ const TextEditor: React.FC<TextEditorProps> = ({ item }) => {
   const handleBlur = () => {
     if (editorStates[id]) {
       const val = editorStates[id].getCurrentContent().getPlainText();
-
-      setTimeout(() => {
-        val.length === 0 && deleteItem(item.id);
-      }, 300);
+      if (val.length === 0) {
+        updateSelectedItem(null);
+        deleteItem(item.id);
+      }
     }
   };
 

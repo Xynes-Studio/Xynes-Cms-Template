@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./textDetails.module.css";
-import { AssetProps, Button, Flex, Text } from "lumia-ui";
+import { AssetProps, Button, Flex, LmCkDelete, Text } from "lumia-ui";
 import { LmBold } from "@/theme/icons/LmBold";
 import { LmItalic } from "@/theme/icons/LmItalic";
 import { LmOl } from "@/theme/icons/LmOl";
@@ -8,7 +8,10 @@ import { LmUl } from "@/theme/icons/LmUl";
 import { useTextEditorContext } from "@/context/textEditor/textEditorProvider";
 import { useEditor } from "@/context/editor/editorProvider";
 import DropDown from "@/components/input/dropDown";
-import { blockStyleFromText, textFromBlockStyle } from "../../../../../writingPad/components/textRender/returnEditorClass";
+import {
+  blockStyleFromText,
+  textFromBlockStyle,
+} from "../../../../../writingPad/components/textRender/returnEditorClass";
 
 export interface TextStylesProps {
   type: "BOLD" | "ITALIC" | "ordered-list-item" | "unordered-list-item";
@@ -63,9 +66,9 @@ const TextDetails = () => {
     toggleBlockType,
     toggleInlineStyle,
     currentBlockType,
-    currentInlineStyles
+    currentInlineStyles,
   } = useTextEditorContext();
-  const { selectedItem } = useEditor();
+  const { selectedItem, deleteItem, updateSelectedItem } = useEditor();
 
   const handleTextStyleClicks = (item: TextStylesProps) => {
     if (selectedItem)
@@ -76,9 +79,7 @@ const TextDetails = () => {
       }
   };
 
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
 
   const handleDDChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTextType = e.target.value;
@@ -92,38 +93,55 @@ const TextDetails = () => {
       className={styles.container}
       direction="column"
     >
-      <Text className={styles.caption} type="caption">
-        Text Properties:
-      </Text>
-      <Flex className={styles.styles}>
-        {textStyles.map((i: TextStylesProps) => {
-          return (
-            <Button
-              onClick={() => handleTextStyleClicks(i)}
-              type={
-                currentInlineStyles?.has(i.type) || currentBlockType === i.type
-                  ? "fill"
-                  : "label"
-              }
-              icon={i.icon}
-              key={i.type}
-              iconSize={0.5}
-              backgroundColor="var(--accent100)"
-              color={
-                currentInlineStyles?.has(i.type) || currentBlockType === i.type
-                  ? "var(--foregroundInverse)"
-                  : "var(--foreground)"
-              }
-              className={styles.buttons}
-            />
-          );
-        })}
+      <Flex direction="column">
+        <Text className={styles.caption} type="caption">
+          Text Properties:
+        </Text>
+        <Flex className={styles.styles}>
+          {textStyles.map((i: TextStylesProps) => {
+            return (
+              <Button
+                onClick={() => handleTextStyleClicks(i)}
+                type={
+                  currentInlineStyles?.has(i.type) ||
+                  currentBlockType === i.type
+                    ? "fill"
+                    : "label"
+                }
+                icon={i.icon}
+                key={i.type}
+                iconSize={0.5}
+                backgroundColor="var(--accent100)"
+                color={
+                  currentInlineStyles?.has(i.type) ||
+                  currentBlockType === i.type
+                    ? "var(--foregroundInverse)"
+                    : "var(--foreground)"
+                }
+                className={styles.buttons}
+              />
+            );
+          })}
+        </Flex>
+        <DropDown
+          data={textTypes}
+          value={textFromBlockStyle(currentBlockType)}
+          onChange={handleDDChange}
+          label="Text Type:"
+        />
       </Flex>
-      <DropDown
-        data={textTypes}
-        value={textFromBlockStyle(currentBlockType)}
-        onChange={handleDDChange}
-        label="Text Type:"
+
+      <Button
+        label="Delete"
+        className={styles.delete}
+        icon={LmCkDelete}
+        backgroundColor="var(--warning)"
+        onClick={() => {
+          if (selectedItem) {
+            updateSelectedItem(null);
+            deleteItem(selectedItem);
+          }
+        }}
       />
     </Flex>
   );
