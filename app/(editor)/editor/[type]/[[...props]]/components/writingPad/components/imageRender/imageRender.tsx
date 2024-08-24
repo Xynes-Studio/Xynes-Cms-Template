@@ -123,7 +123,10 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
     handleSelectedItem();
   };
 
-  const handleSelectedItem = () => {
+  const handleSelectedItem = (event?: React.MouseEvent) => {
+    if (event) event.stopPropagation();
+    console.log(selectedItem, item.id, "item");
+
     if (selectedItem === item.id) {
       // updateSelectedItem(null);
       return;
