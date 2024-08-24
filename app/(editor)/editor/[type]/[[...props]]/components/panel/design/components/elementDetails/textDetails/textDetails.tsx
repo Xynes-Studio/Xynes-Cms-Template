@@ -8,6 +8,7 @@ import { LmUl } from "@/theme/icons/LmUl";
 import { useTextEditorContext } from "@/context/textEditor/textEditorProvider";
 import { useEditor } from "@/context/editor/editorProvider";
 import DropDown from "@/components/input/dropDown";
+import { blockStyleFromText, textFromBlockStyle } from "../../../../../writingPad/components/textRender/returnEditorClass";
 
 export interface TextStylesProps {
   type: "BOLD" | "ITALIC" | "ordered-list-item" | "unordered-list-item";
@@ -62,9 +63,7 @@ const TextDetails = () => {
     toggleBlockType,
     toggleInlineStyle,
     currentBlockType,
-    currentInlineStyles,
-    textType,
-    setTextType,
+    currentInlineStyles
   } = useTextEditorContext();
   const { selectedItem } = useEditor();
 
@@ -77,9 +76,14 @@ const TextDetails = () => {
       }
   };
 
+  useEffect(() => {
+    
+  }, []);
+
   const handleDDChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTextType = e.target.value;
-    setTextType(selectedTextType);
+    if (selectedItem)
+      toggleBlockType(selectedItem, blockStyleFromText(selectedTextType));
   };
 
   return (
@@ -117,7 +121,7 @@ const TextDetails = () => {
       </Flex>
       <DropDown
         data={textTypes}
-        value={textType}
+        value={textFromBlockStyle(currentBlockType)}
         onChange={handleDDChange}
         label="Text Type:"
       />
