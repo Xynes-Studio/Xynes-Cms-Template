@@ -7,6 +7,7 @@ interface ListDataContextType {
   updateItem: (id: string, updatedItem: Partial<ListItem>) => void;
   deleteItem: (id: string) => void;
   getItemsByType: (type: string) => ListItem[];
+  addListItems: (listItems: ListItem[])=> void;
 }
 
 const ListDataContext = createContext<ListDataContextType | undefined>(
@@ -19,6 +20,10 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const addItem = (item: ListItem) => {
     setItems((prevItems) => [...prevItems, item]);
   };
+
+  const addListItems = (listItems: ListItem[])=>{
+    setItems((prevItems) => [...prevItems, ...listItems]);
+  }
 
   const updateItem = (id: string, updatedItem: Partial<ListItem>) => {
     setItems((prevItems) =>
@@ -38,7 +43,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <ListDataContext.Provider
-      value={{ items, addItem, updateItem, deleteItem, getItemsByType }}
+      value={{ items, addItem, updateItem, deleteItem, getItemsByType, addListItems }}
     >
       {children}
     </ListDataContext.Provider>
