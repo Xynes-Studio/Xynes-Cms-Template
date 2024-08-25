@@ -66,7 +66,7 @@ const ImageDetails = () => {
   return (
     <Flex direction="column" className={styles.container}>
       <Text className={styles.caption} type="caption">
-        ImageDetails:
+        Image Details:
       </Text>
       <Flex className={styles.wrapper} wrap>
         {ImageDetailsArray.map((item: ImageDetailsArrayProp) => {

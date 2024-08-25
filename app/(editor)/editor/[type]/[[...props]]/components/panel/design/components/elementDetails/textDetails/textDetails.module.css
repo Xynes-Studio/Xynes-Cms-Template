@@ -1,8 +1,6 @@
 .container {
   width: 95%;
-  height: 100% !important;
   position: relative;
-  justify-content: space-between;
 }
 
 .caption {
@@ -17,9 +15,4 @@
 
 .styles {
   margin-bottom: 1rem;
-}
-
-.delete {
-  width: 5rem !important;
-  margin-bottom: 1rem !important;
 }

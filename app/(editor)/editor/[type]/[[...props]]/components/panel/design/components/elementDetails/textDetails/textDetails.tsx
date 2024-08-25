@@ -68,7 +68,7 @@ const TextDetails = () => {
     currentBlockType,
     currentInlineStyles,
   } = useTextEditorContext();
-  const { selectedItem, deleteItem, updateSelectedItem } = useEditor();
+  const { selectedItem} = useEditor();
 
   const handleTextStyleClicks = (item: TextStylesProps, event?: React.MouseEvent) => {
     event?.stopPropagation();
@@ -94,7 +94,6 @@ const TextDetails = () => {
       className={styles.container}
       direction="column"
     >
-      <Flex direction="column">
         <Text className={styles.caption} type="caption">
           Text Properties:
         </Text>
@@ -130,20 +129,6 @@ const TextDetails = () => {
           onChange={handleDDChange}
           label="Text Type:"
         />
-      </Flex>
-
-      <Button
-        label="Delete"
-        className={styles.delete}
-        icon={LmCkDelete}
-        backgroundColor="var(--warning)"
-        onClick={() => {
-          if (selectedItem) {
-            updateSelectedItem(null);
-            deleteItem(selectedItem);
-          }
-        }}
-      />
     </Flex>
   );
 };

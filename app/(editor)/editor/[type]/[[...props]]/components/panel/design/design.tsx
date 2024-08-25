@@ -1,4 +1,4 @@
-import { Flex, Text } from "lumia-ui";
+import { Button, Flex, LmCkDelete, Text } from "lumia-ui";
 import styles from "./design.module.css";
 import Elements from "./components/elements/elements";
 import { useEditor } from "@/context/editor/editorProvider";
@@ -7,7 +7,7 @@ import TextDetails from "./components/elementDetails/textDetails/textDetails";
 import ImageDetails from "./components/elementDetails/imageDetails/imageDetails";
 
 const Design = () => {
-  const { selectedItem, items } = useEditor();
+  const { selectedItem, items, updateSelectedItem, deleteItem } = useEditor();
 
   const type = selectedItem
     ? items.filter((i: BlogRenderItem) => i.id === selectedItem)[0].type
@@ -24,6 +24,20 @@ const Design = () => {
   return (
     <Flex direction="column" className={styles.container}>
       <ComponentToRender />
+      {type && (
+        <Button
+          label="Delete"
+          className={styles.delete}
+          icon={LmCkDelete}
+          backgroundColor="var(--warning)"
+          onClick={() => {
+            if (selectedItem) {
+              updateSelectedItem(null);
+              deleteItem(selectedItem);
+            }
+          }}
+        />
+      )}
     </Flex>
   );
 };
