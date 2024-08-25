@@ -101,7 +101,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
         primaryBtnLabel={primaryBtnText}
         secondaryBtnLabel={secondaryBtnText}
         actionBtnType='both'
-        actionBtnAlign='center'
+        actionBtnAlign='right'
         title={title}
         description={description}
       >
