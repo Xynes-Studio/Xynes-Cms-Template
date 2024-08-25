@@ -70,7 +70,8 @@ const TextDetails = () => {
   } = useTextEditorContext();
   const { selectedItem, deleteItem, updateSelectedItem } = useEditor();
 
-  const handleTextStyleClicks = (item: TextStylesProps) => {
+  const handleTextStyleClicks = (item: TextStylesProps, event?: React.MouseEvent) => {
+    event?.stopPropagation();
     if (selectedItem)
       if (item.itemType === "block") {
         toggleBlockType(selectedItem, item.type);

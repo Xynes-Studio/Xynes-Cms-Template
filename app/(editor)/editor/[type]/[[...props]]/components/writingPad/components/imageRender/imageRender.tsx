@@ -45,6 +45,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
   const handleError = useCallback(
     (title: string, description: string) => {
+      console.log(title, description, "handleError");
+      
       if (!imageItem && item.val.length === 0) {
         const newNotification: Notification = {
           title: title,
@@ -70,7 +72,7 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
         inputRef.current?.click();
       }
     }
-  }, [handleError, imageItem, item.val, items, loading]);
+  }, [imageItem, item.val, items, loading]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileObj = event.target.files && event.target.files[0];

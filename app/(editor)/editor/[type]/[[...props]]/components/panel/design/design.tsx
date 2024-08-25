@@ -12,13 +12,18 @@ const Design = () => {
   const type = selectedItem
     ? items.filter((i: BlogRenderItem) => i.id === selectedItem)[0].type
     : null;
+  const value = selectedItem
+    ? items.filter((i: BlogRenderItem) => i.id === selectedItem)[0].val
+    : null;
+
+  let ComponentToRender = Elements;
+
+  if (type === "text") ComponentToRender = TextDetails;
+  if (type === "image" && value?.length !== 0) ComponentToRender = ImageDetails;
 
   return (
     <Flex direction="column" className={styles.container}>
-      {type === "text" && <TextDetails />}
-      {type === "image" && <ImageDetails />}
-      {type === null && <Elements />}
-      {/* <Elements /> */}
+      <ComponentToRender />
     </Flex>
   );
 };
