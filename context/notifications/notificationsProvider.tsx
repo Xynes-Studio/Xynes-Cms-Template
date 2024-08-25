@@ -49,7 +49,10 @@ export const NotificationsProvider = ({
 
   const alert = (item?: Notification) => {
     if (item) {
-      setNewNotifications([{ id: uuidv4(), date: new Date(), ...item }, ...newNotifications]);
+      setNewNotifications([
+        { id: uuidv4(), date: new Date(), ...item },
+        ...newNotifications,
+      ]);
     } else {
       return null;
     }
@@ -69,8 +72,8 @@ export const NotificationsProvider = ({
         readNotification,
       }}
     >
-      {children}
       <NotificationStack />
+      {children}
     </NotificationsContext.Provider>
   );
 };

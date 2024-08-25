@@ -70,6 +70,8 @@ const Editor = () => {
   };
 
   const handleEditorClick = () => {
+    console.log("handleEditorClick");
+
     switch (typeOfSelectedItem) {
       case "text":
         handleTextBlur();

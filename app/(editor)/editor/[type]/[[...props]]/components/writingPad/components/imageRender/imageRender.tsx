@@ -8,6 +8,7 @@ import {
   Notification,
   useNotifications,
 } from "@/context/notifications/notificationsProvider";
+import { handleMouseDownChild } from "../../../panel/design/components/elementDetails/textDetails/textDetails";
 
 interface ImageEditorProps {
   item: BlogRenderItem;
@@ -21,7 +22,6 @@ export interface ImageItem {
 const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
   const {
     updateItem,
-    deleteItem,
     editingEnabled,
     items,
     selectedItem,
@@ -45,8 +45,6 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
   const handleError = useCallback(
     (title: string, description: string) => {
-      console.log(title, description, "handleError");
-      
       if (!imageItem && item.val.length === 0) {
         const newNotification: Notification = {
           title: title,
@@ -54,11 +52,10 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
           status: "warning",
         };
         alert(newNotification);
-        deleteItem(item.id);
       }
       setLoading(false);
     },
-    [alert, deleteItem, imageItem, item.id, item.val.length]
+    [alert, imageItem, item.id, item.val.length]
   );
 
   useEffect(() => {
@@ -88,12 +85,12 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
     const ext = fileObj.type.split("/")[1];
 
-    if (accepted !== undefined) {
+    if (accepted) {
       const supported = accepted.split(",").map((e) => e.trim());
 
-      if (supported.filter((i) => i === ext).length === 0) {
+      if (!supported.includes(ext)) {
         handleError(
-          "File format not supported",
+          `File format ${ext} is not supported`,
           `Following formats are supported ${accepted}.`
         );
         setLoading(false); // Ensure loading state is reset
@@ -127,7 +124,6 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
 
   const handleSelectedItem = (event?: React.MouseEvent) => {
     if (event) event.stopPropagation();
-    console.log(selectedItem, item.id, "item");
 
     if (selectedItem === item.id) {
       // updateSelectedItem(null);
@@ -137,11 +133,17 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
     }
   };
 
+  const handleDoubleClick = (event?: React.MouseEvent) => {
+    event?.stopPropagation();
+    inputRef.current?.click();
+  };
+
   return (
     <>
       <input
         type="file"
         onChange={handleFileChange}
+        onClick={handleMouseDownChild}
         style={{ display: "none" }}
         ref={inputRef}
         accept={accepted}
@@ -161,11 +163,14 @@ const ImageEditor: React.FC<ImageEditorProps> = ({ item }) => {
         />
         {editingEnabled && selectedItem === item.id && (
           <button
-            onDoubleClick={() => inputRef.current?.click()}
+            onDoubleClick={handleDoubleClick}
             className={styles.overlayButton}
             ref={containerRef}
           >
-            <Flex direction="column" className={styles.overlay}>
+            <Flex
+              direction="column"
+              className={styles.overlay}
+            >
               <LMAsset Asset={LmImage} size={0.7} />
               <Text className={styles.text} color="var(--foregroundInverse)">
                 Update Image

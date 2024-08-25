@@ -2,7 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
-import '../globals.css';
+import "../globals.css";
+import { CMSProvider } from "@/context/cmsProvider";
 
 export const metadata: Metadata = {
   title: "Create Blog",
@@ -35,13 +36,15 @@ export default function EditorLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={[poppins.variable, afronaut.variable, title.variable].join(
-          " "
-        )}
-      >
-        {children}
-      </body>
+      <CMSProvider>
+        <body
+          className={[poppins.variable, afronaut.variable, title.variable].join(
+            " "
+          )}
+        >
+          {children}
+        </body>
+      </CMSProvider>
     </html>
   );
 }
