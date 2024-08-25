@@ -61,7 +61,11 @@ const Editor = () => {
       if (val.length === 0) {
         updateSelectedItem(null);
         deleteItem(selectedItem);
+      } else {
+        updateSelectedItem(null);
       }
+    } else {
+      updateSelectedItem(null);
     }
   };
 
