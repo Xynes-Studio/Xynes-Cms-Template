@@ -23,7 +23,7 @@ const title = Poppins({
 const afronaut = localFont({
   src: [
     {
-      path: "../fonts/Afronaut.otf",
+      path: "fonts/Afronaut.otf",
     },
   ],
   variable: "--header",
@@ -36,15 +36,13 @@ export default function EditorLayout({
 }>) {
   return (
     <html lang="en">
-      <CMSProvider>
-        <body
-          className={[poppins.variable, afronaut.variable, title.variable].join(
-            " "
-          )}
-        >
-          {children}
-        </body>
-      </CMSProvider>
+      <body
+        className={[poppins.variable, afronaut.variable, title.variable].join(
+          " "
+        )}
+      >
+        <CMSProvider>{children}</CMSProvider>
+      </body>
     </html>
   );
 }
