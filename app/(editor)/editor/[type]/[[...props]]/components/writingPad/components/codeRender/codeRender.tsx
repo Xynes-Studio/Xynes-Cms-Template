@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { useEditor } from "@/context/editor/editorProvider";
 import { BlogRenderItem } from "@/context/editor/editor.type";
 import { stateFromHTML } from "draft-js-import-html";
-import { Code, Flex } from "lumia-ui";
+import { Button, Code, Flex } from "lumia-ui";
 
 interface CodeEditorProps {
   item: BlogRenderItem;
@@ -29,8 +29,8 @@ export type Language =
   | "php"
   | "python";
 
-const isValidLanguage = (lang: string): lang is Language => {
-  return [
+const isValidLanguage = (lang: string): Language => {
+  const languageArray: Language[] = [
     "html",
     "auto",
     "css",
@@ -42,7 +42,8 @@ const isValidLanguage = (lang: string): lang is Language => {
     "sql",
     "php",
     "python",
-  ].includes(lang);
+  ];
+  return languageArray.filter((i) => i === lang)[0] || "auto";
 };
 
 const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
@@ -78,7 +79,6 @@ const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
   };
 
   useEffect(() => {
-    
     setEditorState(RichUtils.toggleBlockType(editorState, "code-block"));
   }, []);
 
@@ -103,6 +103,7 @@ const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
       onClick={handleContainerClick}
       className={styles.container}
     >
+      <Button label={isValidLanguage(item.lang || "")} backgroundColor="rgba(0,0,0,0.2)"/>
       {selectedItem === item.id ? (
         <Editor
           ref={editorRef}
@@ -116,9 +117,7 @@ const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
         <Code
           code={item.val}
           className={styles.code}
-          language={
-            item.lang && isValidLanguage(item.lang) ? item.lang : "auto"
-          }
+          language={isValidLanguage(item.lang || "")}
         />
       )}
     </Flex>
