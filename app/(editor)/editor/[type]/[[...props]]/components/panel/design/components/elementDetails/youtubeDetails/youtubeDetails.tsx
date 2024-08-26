@@ -3,9 +3,9 @@ import styles from "./youtubeDetails.module.css";
 import { useEditor } from "@/context/editor/editorProvider";
 import { useState } from "react";
 import { BlogRenderItem } from "@/context/editor/editor.type";
-import YoutubeLinkModal from "../../../../writingPad/components/youtubeRender/youtubeInput";
-import { handleMouseDownChild } from "../elementDetails/textDetails/textDetails";
 import { useNotifications } from "@/context/notifications/notificationsProvider";
+import { handleMouseDownChild } from "../textDetails/textDetails";
+import YoutubeLinkModal from "../../../../../writingPad/components/youtubeRender/youtubeInput";
 
 const YoutubeDetails = () => {
   const { selectedItem, items, updateItem, updateSelectedItem } = useEditor();

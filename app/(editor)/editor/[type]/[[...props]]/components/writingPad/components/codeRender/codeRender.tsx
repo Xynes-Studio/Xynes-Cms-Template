@@ -16,7 +16,7 @@ interface CodeEditorProps {
   item: BlogRenderItem;
 }
 
-type Language =
+export type Language =
   | "html"
   | "auto"
   | "css"
@@ -49,18 +49,20 @@ const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
   const [editorState, setEditorState] = useState<EditorState>(
     EditorState.createEmpty()
   );
-  const [canEdit, setCanEdit] = useState(true);
-  const { updateItem, updateSelectedItem } = useEditor();
+  const { updateItem, updateSelectedItem, selectedItem } = useEditor();
   const editorRef = useRef<Editor>(null);
 
   useEffect(() => {
     if (item.val.length > 0) {
       const contentState = stateFromHTML(item.val);
       setEditorState(EditorState.createWithContent(contentState));
-      setCanEdit(false);
     } else {
       setEditorState(EditorState.createEmpty());
+      if (editorRef?.current) {
+        editorRef.current.focus();
+      }
     }
+    updateSelectedItem(item.id);
   }, []);
 
   const handleKeyCommand = (
@@ -76,35 +78,32 @@ const CodeRender: React.FC<CodeEditorProps> = ({ item }) => {
   };
 
   useEffect(() => {
+    
     setEditorState(RichUtils.toggleBlockType(editorState, "code-block"));
   }, []);
 
   const handleBlur = () => {
     const val = editorState.getCurrentContent().getPlainText();
-    setCanEdit(false);
     updateItem(item.id, { val });
   };
 
   const handleContainerClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     updateSelectedItem(item.id);
-    if (!canEdit) {
-      setCanEdit(true);
-      setTimeout(() => {
-        if (editorRef?.current) {
-          editorRef.current.focus();
-        }
-      }, 100);
-    } else {
+    setTimeout(() => {
       if (editorRef?.current) {
         editorRef.current.focus();
       }
-    }
+    }, 100);
   };
 
   return (
-    <Flex onClick={handleContainerClick} className={styles.container}>
-      {canEdit ? (
+    <Flex
+      direction="column"
+      onClick={handleContainerClick}
+      className={styles.container}
+    >
+      {selectedItem === item.id ? (
         <Editor
           ref={editorRef}
           editorState={editorState}

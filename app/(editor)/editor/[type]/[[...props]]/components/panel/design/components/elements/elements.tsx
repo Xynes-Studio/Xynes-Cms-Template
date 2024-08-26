@@ -51,7 +51,7 @@ const ElementsArray: ElementsArrayProp[] = [
 ];
 
 const Elements = () => {
-  const { addItem } = useEditor();
+  const { addItem, updateSelectedItem } = useEditor();
 
   const handleAdd = (item: ElementsArrayProp) => {
     let obj: BlogRenderItem = {
@@ -63,10 +63,11 @@ const Elements = () => {
     if (item.type === "text") {
       obj["placeholder"] = "Start typing here...";
     }
-    if (item.type === 'code') {
+    if (item.type === "code") {
       obj["placeholder"] = "Paste a block of code here...";
     }
     addItem(obj);
+    updateSelectedItem(obj.id);
   };
 
   return (
