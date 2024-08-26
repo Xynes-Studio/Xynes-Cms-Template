@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { BlogRenderItem } from "@/context/editor/editor.type";
-import { cx, Flex, Text, TextInput } from "lumia-ui";
+import { Button, cx, Flex, Text, TextInput } from "lumia-ui";
 import styles from "./youtubeRender.module.css";
 import Loader from "@/components/load/load";
 import { useModal } from "@/context/modals/modalProvider";
 import { useEditor } from "@/context/editor/editorProvider";
 import { useNotifications } from "@/context/notifications/notificationsProvider";
 import YoutubeLinkModal from "./youtubeInput";
+import { LmNewTab } from "@/theme/icons/lmNewTab";
 
 interface YoutubeEditorProps {
   item: BlogRenderItem;
@@ -22,8 +23,13 @@ export const getYouTubeId = (url: string): string | null => {
 const YoutubeRender: React.FC<YoutubeEditorProps> = ({ item }) => {
   const [link, setLink] = useState<string>("");
   const { showModal, hideModal } = useModal();
-  const { deleteItem, updateItem, updateSelectedItem, selectedItem } =
-    useEditor();
+  const {
+    deleteItem,
+    updateItem,
+    updateSelectedItem,
+    selectedItem,
+    editingEnabled,
+  } = useEditor();
   const { alert } = useNotifications();
 
   const [valid, setValid] = useState(true);
@@ -51,15 +57,7 @@ const YoutubeRender: React.FC<YoutubeEditorProps> = ({ item }) => {
       });
       return;
     }
-    const youtubeID = getYouTubeId(link);
-    if (!youtubeID) {
-      alert({
-        title: "Failed to generate ID.",
-        status: "error",
-      });
-      return;
-    }
-    updateItem(item.id, { val: youtubeID });
+    updateItem(item.id, { val: link });
     updateSelectedItem(item.id);
     hideModal();
   };
@@ -92,6 +90,14 @@ const YoutubeRender: React.FC<YoutubeEditorProps> = ({ item }) => {
     }
   }, [item, link, valid, showModal, hideModal, handleConfirm, handleCancel]);
 
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      event.stopPropagation();
+      updateSelectedItem(item.id);
+    },
+    [item.id, updateSelectedItem]
+  );
+
   if (item.val.length === 0) {
     return (
       <Flex className={cx(styles.container, styles.empty)}>
@@ -100,14 +106,43 @@ const YoutubeRender: React.FC<YoutubeEditorProps> = ({ item }) => {
       </Flex>
     );
   }
+
+  const handleOpenLink = () => {
+    window.open(item.val, "_blank");
+  };
+
   return (
-    <Flex className={styles.container}>
+    <Flex
+      className={cx(
+        styles.container,
+        selectedItem === item.id && styles.selected
+      )}
+    >
+      {editingEnabled && (
+        <div onClick={handleClick} className={styles.overlay}>
+          {selectedItem === item.id && (
+            <div className={styles.overlayYoutube}>
+              <Text numberOfLines={1} className={styles.link}>
+                {item.val}
+              </Text>
+              <Button
+                onClick={handleOpenLink}
+                label="Open Link"
+                icon={LmNewTab}
+                iconAtEnd
+                backgroundColor="var(--accent100)"
+                color="var(--foregroundInverse)"
+              />
+            </div>
+          )}
+        </div>
+      )}
       <iframe
-        src={`https://www.youtube.com/embed/${item?.val}`}
+        src={`https://www.youtube.com/embed/${getYouTubeId(item?.val)}`}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen={false}
         title="Embedded Youtube"
-        className={cx(styles.iframe, selectedItem === item.id && styles.selected)}
+        className={cx(styles.iframe)}
         style={{
           outline: "none",
         }}

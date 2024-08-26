@@ -5,6 +5,7 @@ import { useEditor } from "@/context/editor/editorProvider";
 import { BlogRenderItem } from "@/context/editor/editor.type";
 import TextDetails from "./components/elementDetails/textDetails/textDetails";
 import ImageDetails from "./components/elementDetails/imageDetails/imageDetails";
+import YoutubeDetails from "./components/youtubeDetails/youtubeDetails";
 
 const Design = () => {
   const { selectedItem, items, updateSelectedItem, deleteItem } = useEditor();
@@ -19,6 +20,7 @@ const Design = () => {
   let ComponentToRender = Elements;
 
   if (type === "text") ComponentToRender = TextDetails;
+  if (type === 'youtube') ComponentToRender = YoutubeDetails;
   if (type === "image" && value?.length !== 0) ComponentToRender = ImageDetails;
 
   return (
