@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BlogRenderItem } from "@/context/editor/editor.type";
 import { Button, cx, Flex, Text, TextInput } from "lumia-ui";
 import styles from "./youtubeRender.module.css";

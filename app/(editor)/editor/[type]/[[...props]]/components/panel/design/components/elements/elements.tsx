@@ -63,6 +63,9 @@ const Elements = () => {
     if (item.type === "text") {
       obj["placeholder"] = "Start typing here...";
     }
+    if (item.type === 'code') {
+      obj["placeholder"] = "Paste a block of code here...";
+    }
     addItem(obj);
   };
 

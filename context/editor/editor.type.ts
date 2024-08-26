@@ -5,6 +5,7 @@ export interface BlogRenderItem {
   placeholder?: string;
   divider?: BlogRenderItem[];
   val: string;
+  lang?: string;
 }
 
 export interface Meta {
