@@ -1,5 +1,5 @@
 "use client";
-import { Card, Flex, LmCkDelete } from "lumia-ui";
+import { Card, Flex, LmCkDelete, ModalHorizontalIn } from "lumia-ui";
 import styles from "./page.module.css";
 import { useModal } from "@/context/modals/modalProvider";
 import { useCallback, useEffect } from "react";
@@ -9,10 +9,8 @@ import {
   Notification,
   useNotifications,
 } from "@/context/notifications/notificationsProvider";
-import { UserResponse } from "../(login)/login/login.client";
 import { ListItem } from "@/context/listData/list.model";
 import { useListData } from "@/context/listData/listDataProvider";
-import { getFromLocalStorage } from "@/utils/storage";
 import { useUser } from "@/context/user/userContext";
 
 interface User {
@@ -184,7 +182,7 @@ const Blog = () => {
               </button>
             }
             displaySwitch
-            image={blog.image || "https://picsum.photos/id/1/400/450"}
+            image={blog.image}
             type="fill"
             toggleValue={blog.active}
             onToggle={() => handleToggleButton(blog.id, blog.active)}
