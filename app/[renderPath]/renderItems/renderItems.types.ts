@@ -1,6 +1,3 @@
-import React from "react";
-import styles from "./cardRendered.module.css";
-
 export interface User {
   active?: boolean;
   approved?: boolean;
@@ -13,7 +10,7 @@ export interface User {
   username?: string;
 }
 
-export interface CardDataOBJ {
+export interface renderOBJ {
   active: boolean;
   category?: string;
   created_at?: string;
@@ -22,19 +19,7 @@ export interface CardDataOBJ {
   id: string;
   keywords?: string;
   thumbnail?: string;
-  title?: string;
+  title: string;
   updated_at?: string;
   user?: User;
 }
-
-export interface CardRendererProps {
-  data: CardDataOBJ[];
-  switchMethod: (obj: CardDataOBJ) => void;
-  deleteMethod: (obj: CardDataOBJ) => void;
-}
-
-const cardRenderer:React.FC<CardRendererProps> = () => {
-    return <></>
-};
-
-export default cardRenderer;

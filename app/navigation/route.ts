@@ -1,27 +1,43 @@
+import { renderOBJ } from "../[renderPath]/renderItems/renderItems.types";
 import { AssetProps, LmCkAttachment, LmCkBell, LmCkReact } from "lumia-ui";
+import { v4 as uuid } from "uuid";
 
 export interface RouteTypes {
   link: string;
+  id: string;
   title: string;
   icon?: React.FC<AssetProps>;
-  blog?: boolean;
+  canAddBlog?: boolean;
+  renderType: string;
+  switchEndPoint?: string;
+  deleteEndPoint?: string;
+  fetchEndPoint?: string;
 }
 
 export const routes: RouteTypes[] = [
   {
+    id: uuid(),
     title: "Dashboard",
     link: "/",
     icon: LmCkAttachment,
+    renderType: '',
   },
   {
+    id: uuid(),
     title: "Blogs",
     link: "/blogs",
     icon: LmCkReact,
-    blog: true,
+    canAddBlog: true,
+    renderType: 'cards',
+    fetchEndPoint: '/blogs',
+    deleteEndPoint: '/users/blogs/',
+    switchEndPoint: '/users/blogs/'
   },
   {
+    id: uuid(),
     title: "About",
     link: "/about",
     icon: LmCkBell,
+    renderType: 'cards'
   },
 ];
