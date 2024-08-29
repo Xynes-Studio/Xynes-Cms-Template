@@ -19,9 +19,13 @@ interface ListDataContextType {
   getItemsByType: (type: string) => ListItem[];
   getItemById: (id: string) => ListItem | undefined;
   addListItems: (listItems: ListItem[]) => void;
-  fetchList: (ENDPOINT: string, type: string) => Promise<void>;
+  fetchList: (ENDPOINT: string, type: string) => Promise<ListItem[] | null>;
   deleteListApi: (ENDPOINT: string, id: string) => Promise<void>;
-  switchListItemApi: (ENDPOINT: string, id: string, status: boolean) => Promise<void>;
+  switchListItemApi: (
+    ENDPOINT: string,
+    id: string,
+    status: boolean
+  ) => Promise<void>;
 }
 
 export interface ListApiResponse {
@@ -85,7 +89,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const fetchList = async (ENDPOINT: string, type: string) => {
     try {
       const resp = await apiService.get<ListApiResponse>(ENDPOINT);
-      
+
       if (resp && resp.data && resp.data.length > 0) {
         const listItems: ListItem[] = resp.data.map((blog: renderOBJ) => ({
           id: blog.id,
@@ -101,6 +105,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           },
         }));
         addListItems(listItems);
+        return listItems;
       }
     } catch (error: any) {
       const newNotification: Notification = {
@@ -110,6 +115,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       };
       alert(newNotification);
     }
+    return null;
   };
 
   const deleteListApi = async (ENDPOINT: string, id: string) => {

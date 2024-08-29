@@ -40,9 +40,10 @@ const CardRenderer: React.FC<CardRendererProps> = ({
       {data?.map((item: ListItem) => (
         <Card
           key={item.id}
+          className={styles.card}
           actionElement={
             deleteEndPoint ? (
-              <button onClick={() => handleDeleteButton(item.id)}>
+              <button className={styles.deleteBtn} onClick={() => handleDeleteButton(item.id)}>
                 <LmCkDelete className={styles.deleteBtn} color="white" />
               </button>
             ) : undefined

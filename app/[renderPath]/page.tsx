@@ -8,6 +8,7 @@ import { routes, RouteTypes } from "../navigation/route";
 import CardRenderer from "./renderItems/cardRenderer/cardRendered";
 import NotFound from "./renderItems/notFound/notFound";
 import { ListItem } from "@/context/listData/list.model";
+import Loader from "@/components/load/load";
 
 export interface BlogEntry {
   active: boolean;
@@ -20,6 +21,24 @@ export interface BlogEntry {
   title: string;
   updated_at: string; // ISO 8601 date string, consider using `Date` if you'll parse this to a Date object
 }
+
+const RenderItem: React.FC<{ item: RouteTypes; data?: ListItem[] }> = ({
+  item,
+  data,
+}) => {
+  switch (item.renderType) {
+    case "cards":
+      return (
+        <CardRenderer
+          data={data}
+          switchEndPoint={item.switchEndPoint}
+          deleteEndPoint={item.deleteEndPoint}
+        />
+      );
+    default:
+      return <NotFound />;
+  }
+};
 
 const RenderDashboardElements = () => {
   const params = useParams();
@@ -36,9 +55,13 @@ const RenderDashboardElements = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    if (routerObj.fetchEndPoint) await fetchList(routerObj.fetchEndPoint, type);
+    if (routerObj.fetchEndPoint) {
+      const data = await fetchList(routerObj.fetchEndPoint, type);
+      console.log("data", data);
 
-    setLoading(false);
+      data != null && setData(data);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -49,19 +72,12 @@ const RenderDashboardElements = () => {
     }
   }, [type]);
 
-  let RenderItems;
-
-  switch (routerObj?.renderType) {
-    case "cards":
-      RenderItems = <CardRenderer data={data} />;
-      break;
-
-    default:
-      RenderItems = <NotFound />;
-      break;
-  }
-
-  return <div className={styles.wrapper}>{RenderItems && RenderItems}</div>;
+  return (
+    <div className={styles.wrapper}>
+      {loading && <Loader />}
+      {!loading && <RenderItem item={routerObj} data={data} />}
+    </div>
+  );
 };
 
 export default RenderDashboardElements;
