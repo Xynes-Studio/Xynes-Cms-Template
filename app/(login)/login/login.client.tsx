@@ -11,6 +11,7 @@ import Loader from "@/components/load/load";
 import { saveToLocalStorage } from "@/utils/storage";
 import { usePathname, useRouter } from "next/navigation";
 import { BASE_URL } from "@/config/config";
+import { useUser } from "@/context/user/userContext";
 
 export interface UserResponse {
   active: boolean;
@@ -35,7 +36,7 @@ const LogInClient: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { alert } = useNotifications();
   const apiService = new ApiService(BASE_URL);
-
+  const { addUser } = useUser();
   const handleLogIn = async () => {
     setLoading(true);
     try {
@@ -45,7 +46,7 @@ const LogInClient: React.FC = () => {
         passwd: userPassword,
         username: userEmail,
       });
-      await saveToLocalStorage("user", JSON.stringify(response));
+      await addUser(response);
       if (path === "/login") {
         window.location.replace("/");
       }
