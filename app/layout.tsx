@@ -5,7 +5,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { CMSProvider } from "@/context/cmsProvider";
 import ClientOnly from "./client";
-import styles from './page.module.css';
 
 const poppins = Poppins({
   subsets: ["latin"],

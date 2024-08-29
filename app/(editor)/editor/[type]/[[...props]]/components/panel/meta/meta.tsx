@@ -1,4 +1,4 @@
-import { Flex, Image, Text, Textarea, TextInput } from "lumia-ui";
+import { Flex, Text, Textarea, TextInput } from "lumia-ui";
 import styles from "./meta.module.css";
 import { useEditor } from "@/context/editor/editorProvider";
 import UpdateMetaImage from "../updateMetaImage/updateMetaImage";

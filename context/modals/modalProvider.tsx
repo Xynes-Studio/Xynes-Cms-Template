@@ -5,10 +5,11 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  ReactElement,
 } from "react";
 
 interface ModalOptions {
-  content?: ReactNode;
+  content?: ReactElement | null;
   primaryBtnText?: string;
   secondaryBtnText?: string;
   primaryBtnFeedback?: () => void;
@@ -92,21 +93,23 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
       }}
     >
       {children}
-      <Modal
-        visible={isVisible}
-        onClose={hideModal}
-        closeIcon
-        primaryBtnOnPress={primaryBtnFeedback}
-        secondaryBtnOnPress={secondaryBtnFeedback}
-        primaryBtnLabel={primaryBtnText}
-        secondaryBtnLabel={secondaryBtnText}
-        actionBtnType='both'
-        actionBtnAlign='right'
-        title={title}
-        description={description}
-      >
-        {content}
-      </Modal>
+      {isVisible && (
+        <Modal
+          visible={isVisible}
+          onClose={hideModal}
+          closeIcon
+          primaryBtnOnPress={primaryBtnFeedback}
+          secondaryBtnOnPress={secondaryBtnFeedback}
+          primaryBtnLabel={primaryBtnText}
+          secondaryBtnLabel={secondaryBtnText}
+          actionBtnType="both"
+          actionBtnAlign="center"
+          title={title}
+          description={description}
+        >
+          {content}
+        </Modal>
+      )}
     </ModalContext.Provider>
   );
 };
