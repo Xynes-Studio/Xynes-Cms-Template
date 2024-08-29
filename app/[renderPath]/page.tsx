@@ -49,28 +49,25 @@ const RenderDashboardElements = () => {
   const routerObj: RouteTypes = routes.filter(
     (i: RouteTypes) => i.link?.split("/")[1] === type
   )[0];
-  const { fetchList, getItemsByType } = useListData();
+  const { fetchList, getItemsByType, items } = useListData();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ListItem[]>();
 
   const fetchData = async () => {
     setLoading(true);
     if (routerObj.fetchEndPoint) {
-      const data = await fetchList(routerObj.fetchEndPoint, type);
-      console.log("data", data);
-
-      data != null && setData(data);
+      await fetchList(routerObj.fetchEndPoint, type);
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     const data = getItemsByType(type);
     setData(data);
     if (data.length == 0) {
       fetchData();
     }
-  }, [type]);
+  }, [type, items]);
 
   return (
     <div className={styles.wrapper}>

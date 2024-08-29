@@ -19,7 +19,7 @@ interface ListDataContextType {
   getItemsByType: (type: string) => ListItem[];
   getItemById: (id: string) => ListItem | undefined;
   addListItems: (listItems: ListItem[]) => void;
-  fetchList: (ENDPOINT: string, type: string) => Promise<ListItem[] | null>;
+  fetchList: (ENDPOINT: string, type: string) => Promise<void>;
   deleteListApi: (ENDPOINT: string, id: string) => Promise<void>;
   switchListItemApi: (
     ENDPOINT: string,
@@ -105,7 +105,6 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           },
         }));
         addListItems(listItems);
-        return listItems;
       }
     } catch (error: any) {
       const newNotification: Notification = {
@@ -115,7 +114,6 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       };
       alert(newNotification);
     }
-    return null;
   };
 
   const deleteListApi = async (ENDPOINT: string, id: string) => {
