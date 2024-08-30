@@ -1,16 +1,21 @@
-.card{
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+.card {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 
-.container{
-    margin-left: 1rem;
-    margin-top: 1rem;
+.container {
+  margin-left: 1rem;
+  margin-top: 1rem;
 }
 
-.deleteBtn{
-    all: unset;
-    right: 0.5rem;
-    top: 0.5rem;
-    position: absolute;
+.deleteBtn {
+  all: unset;
+  right: 0.5rem;
+  top: 0.5rem;
+  position: absolute;
+}
+
+.anchor {
+  all: unset;
+  cursor: pointer;
 }

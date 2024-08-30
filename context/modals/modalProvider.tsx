@@ -69,8 +69,6 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     title,
     description,
   }: ModalOptions) => {
-    console.log("calling inside");
-
     setContent(content);
     setPrimaryBtnText(primaryBtnText);
     setSecondaryBtnText(secondaryBtnText);
@@ -80,10 +78,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     setDescription(description);
     setIsVisible(true);
   };
-
-  useEffect(() => {
-    console.log(isVisible, "isVisible");
-  }, [isVisible]);
+  
   return (
     <ModalContext.Provider
       value={{

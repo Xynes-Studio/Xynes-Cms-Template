@@ -19,6 +19,7 @@ const CardRenderer: React.FC<CardRendererProps> = ({
 }) => {
   const { showModal, hideModal } = useModal();
   const { deleteListApi, switchListItemApi } = useListData();
+
   const handleDeleteButton = (id: string) => {
     if (deleteEndPoint)
       showModal({
@@ -35,34 +36,44 @@ const CardRenderer: React.FC<CardRendererProps> = ({
         },
       });
   };
+
+  const handleCardClick = () => {
+    
+  };
+
   return (
     <Flex wrap direction="row" responsive className={styles.container}>
       {data?.map((item: ListItem) => (
-        <Card
-          key={item.id}
-          className={styles.card}
-          actionElement={
-            deleteEndPoint ? (
-              <button className={styles.deleteBtn} onClick={() => handleDeleteButton(item.id)}>
-                <LmCkDelete className={styles.deleteBtn} color="white" />
-              </button>
-            ) : undefined
-          }
-          displaySwitch={switchEndPoint ? true : false}
-          image={item.image}
-          type="fill"
-          toggleValue={item.active}
-          onToggle={() =>
-            switchEndPoint &&
-            switchListItemApi(
-              `${switchEndPoint}${item.id}`,
-              item.id,
-              !item.active
-            )
-          }
-          title={item.title}
-          description={item.description || ""}
-        ></Card>
+        <a key={item.id} className={styles.anchor}>
+          <Card
+            className={styles.card}
+            onClick={handleCardClick}
+            actionElement={
+              deleteEndPoint ? (
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => handleDeleteButton(item.id)}
+                >
+                  <LmCkDelete className={styles.deleteBtn} color="white" />
+                </button>
+              ) : undefined
+            }
+            displaySwitch={switchEndPoint ? true : false}
+            image={item.image}
+            type="fill"
+            toggleValue={item.active}
+            onToggle={() =>
+              switchEndPoint &&
+              switchListItemApi(
+                `${switchEndPoint}${item.id}`,
+                item.id,
+                !item.active
+              )
+            }
+            title={item.title}
+            description={item.description || ""}
+          ></Card>
+        </a>
       ))}
     </Flex>
   );
