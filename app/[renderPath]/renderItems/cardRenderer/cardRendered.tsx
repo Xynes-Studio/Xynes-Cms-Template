@@ -22,7 +22,8 @@ const CardRenderer: React.FC<CardRendererProps> = ({
   const { showHorizontalModal, hideHorizontalModal } = useHorizontalModal();
   const { deleteListApi, switchListItemApi, selectedRouterObj } = useListData();
 
-  const handleDeleteButton = (id: string) => {
+  const handleDeleteButton = (event: React.MouseEvent, id: string) => {
+    event.stopPropagation(); 
     if (deleteEndPoint)
       showModal({
         title: "Delete Confirmation",
@@ -62,7 +63,7 @@ const CardRenderer: React.FC<CardRendererProps> = ({
               deleteEndPoint ? (
                 <button
                   className={styles.deleteBtn}
-                  onClick={() => handleDeleteButton(item.id)}
+                  onClick={(event) => handleDeleteButton(event, item.id)}
                 >
                   <LmCkDelete className={styles.deleteBtn} color="white" />
                 </button>
