@@ -155,7 +155,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     try {
       const user = await getUser();
       const resp = await apiService.put<renderOBJ>(
-        `/users/blogs/${id}`,
+        `${ENDPOINT}${id}`,
         {
           active: status,
         },
