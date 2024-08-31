@@ -49,7 +49,8 @@ const RenderDashboardElements = () => {
   const routerObj: RouteTypes = routes.filter(
     (i: RouteTypes) => i.link?.split("/")[1] === type
   )[0];
-  const { fetchList, getItemsByType, items } = useListData();
+  const { fetchList, getItemsByType, items, setSelectedRouterObj } =
+    useListData();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ListItem[]>();
 
@@ -60,7 +61,11 @@ const RenderDashboardElements = () => {
       setLoading(false);
     }
   };
-  
+
+  useEffect(() => {
+    setSelectedRouterObj(routerObj);
+  }, [routerObj]);
+
   useEffect(() => {
     const data = getItemsByType(type);
     setData(data);

@@ -11,6 +11,17 @@ export type actionTypes =
   | null
   | undefined;
 
+export interface ModalActionComponent {
+  type: actionTypes;
+  actionComponent?: React.FC<{ item?: ListItem }>;
+  onHide?: ()=>void;
+}  
+export interface ListActionComponent {
+  type: actionTypes;
+  actionComponent?: React.FC<{ item?: ListItem }>;
+  onHide?: ()=>void;
+}  
+
 export interface RouteTypes {
   link: string;
   id: string;
@@ -21,8 +32,7 @@ export interface RouteTypes {
   switchEndPoint?: string;
   deleteEndPoint?: string;
   fetchEndPoint?: string;
-  actionType?: actionTypes;
-  actionComponent?: React.FC<{ item?: ListItem }>;
+  action?: ModalActionComponent | ListActionComponent
 }
 
 export const routes: RouteTypes[] = [
@@ -43,7 +53,9 @@ export const routes: RouteTypes[] = [
     fetchEndPoint: "/blogs",
     deleteEndPoint: "/users/blogs/",
     switchEndPoint: "/users/blogs/",
-    actionType: "open-modal-right",
+    action: {
+      type: 'open-modal-right',
+    } as ModalActionComponent
   },
   {
     id: uuid(),

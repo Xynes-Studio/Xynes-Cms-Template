@@ -5,6 +5,7 @@ import { Card, Flex, LmCkDelete } from "lumia-ui";
 import { ListItem } from "@/context/listData/list.model";
 import { useModal } from "@/context/modals/modalProvider";
 import { useListData } from "@/context/listData/listDataProvider";
+import { useHorizontalModal } from "@/context/modals/horizontalModalProvider";
 
 export interface CardRendererProps {
   data?: ListItem[];
@@ -18,7 +19,8 @@ const CardRenderer: React.FC<CardRendererProps> = ({
   switchEndPoint,
 }) => {
   const { showModal, hideModal } = useModal();
-  const { deleteListApi, switchListItemApi } = useListData();
+  const { showHorizontalModal, hideHorizontalModal } = useHorizontalModal();
+  const { deleteListApi, switchListItemApi, selectedRouterObj } = useListData();
 
   const handleDeleteButton = (id: string) => {
     if (deleteEndPoint)
@@ -38,7 +40,15 @@ const CardRenderer: React.FC<CardRendererProps> = ({
   };
 
   const handleCardClick = () => {
+    switch (selectedRouterObj?.action?.type) {
+      case 'open-modal-right':
+        const content = <p>This </p>
+        showHorizontalModal({content});
+        break;
     
+      default:
+        break;
+    }
   };
 
   return (

@@ -10,9 +10,14 @@ import {
 import { useUser } from "../user/userContext";
 import { useNotification } from "lumia-ui";
 import { useModal } from "../modals/modalProvider";
+import { RouteTypes } from "@/app/navigation/route";
 
 interface ListDataContextType {
   items: ListItem[];
+  selectedRouterObj: RouteTypes | undefined; // Add this
+  setSelectedRouterObj: React.Dispatch<
+    React.SetStateAction<RouteTypes | undefined>
+  >; // Add this
   addItem: (item: ListItem) => void;
   updateItem: (id: string, updatedItem: Partial<ListItem>) => void;
   deleteItem: (id: string) => void;
@@ -46,6 +51,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   const { getUser } = useUser();
   const { alert } = useNotifications();
+  const [selectedRouterObj, setSelectedRouterObj] = useState<RouteTypes>();
 
   const addItem = (item: ListItem) => {
     setItems((prevItems) => {
@@ -183,6 +189,8 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     <ListDataContext.Provider
       value={{
         items,
+        selectedRouterObj, // Add this
+        setSelectedRouterObj, // Add this
         addItem,
         updateItem,
         deleteItem,
