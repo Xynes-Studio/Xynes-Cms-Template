@@ -12,20 +12,10 @@ export interface BottomActionItem {
 }
 
 export interface FormElementData {
-  type: "textInput" | "textArea" | "pinInput" | "switch" | "checkbox";
-  val: string | boolean;
+  type: "textInput" | "textArea" | "pinInput" | "switch" | "checkbox" | "select" | "file" | "image";
+  val?: string | boolean;
   key: string;
+  label: string;
   id: string;
-}
-
-export interface TabElement {
-  title: string;
-  icon?: React.FC<AssetProps>;
-  data: FormElementData[];
-  topActionItems?: TopActionItem[];
-  bottomActionItems?: BottomActionItem[];
-}
-
-export interface FormComponentElements {
-  tabs: TabElement[];
+  supportedFiles?: string; //separated by comma
 }

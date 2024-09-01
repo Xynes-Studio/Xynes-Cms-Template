@@ -23,7 +23,7 @@ const CardRenderer: React.FC<CardRendererProps> = ({
   const { deleteListApi, switchListItemApi, selectedRouterObj } = useListData();
 
   const handleDeleteButton = (event: React.MouseEvent, id: string) => {
-    event.stopPropagation(); 
+    event.stopPropagation();
     if (deleteEndPoint)
       showModal({
         title: "Delete Confirmation",
@@ -40,15 +40,18 @@ const CardRenderer: React.FC<CardRendererProps> = ({
       });
   };
 
-  const handleCardClick = () => {
-    switch (selectedRouterObj?.action?.type) {
-      case 'open-modal-right':
-        const content = <p>This </p>
-        showHorizontalModal({content});
-        break;
-    
-      default:
-        break;
+  const handleCardClick = (item: ListItem) => {
+    if (selectedRouterObj?.action?.actionComponent) {
+      const ModalComponent = selectedRouterObj?.action?.actionComponent;
+
+      switch (selectedRouterObj?.action?.type) {
+        case "open-modal-right":
+          showHorizontalModal({ content: <ModalComponent item={item} /> });
+          break;
+
+        default:
+          break;
+      }
     }
   };
 
@@ -58,7 +61,7 @@ const CardRenderer: React.FC<CardRendererProps> = ({
         <a key={item.id} className={styles.anchor}>
           <Card
             className={styles.card}
-            onClick={handleCardClick}
+            onClick={() => handleCardClick(item)}
             actionElement={
               deleteEndPoint ? (
                 <button

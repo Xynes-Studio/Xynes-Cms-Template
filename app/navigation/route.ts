@@ -3,6 +3,7 @@ import { renderOBJ } from "../[renderPath]/renderItems/renderItems.types";
 import { AssetProps, LmCkAttachment, LmCkBell, LmCkReact } from "lumia-ui";
 import React from "react";
 import { v4 as uuid } from "uuid";
+import BlogModalComponent from "@/components/routeComponents/blogComponent/blogComponent";
 
 export type actionTypes =
   | "open-modal-right"
@@ -55,6 +56,7 @@ export const routes: RouteTypes[] = [
     switchEndPoint: "/users/blogs/",
     action: {
       type: 'open-modal-right',
+      actionComponent: BlogModalComponent
     } as ModalActionComponent
   },
   {
