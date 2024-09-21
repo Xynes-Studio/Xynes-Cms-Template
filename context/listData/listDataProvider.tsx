@@ -1,16 +1,14 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { ListItem } from "./list.model";
 import { renderOBJ } from "@/app/[renderPath]/renderItems/renderItems.types";
-import ApiService from "@/services/apiService";
+import { RouteTypes } from "@/app/navigation/route";
 import { BASE_URL } from "@/config/config";
+import ApiService from "@/services/apiService";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import {
   Notification,
   useNotifications,
 } from "../notifications/notificationsProvider";
 import { useUser } from "../user/userContext";
-import { useNotification } from "lumia-ui";
-import { useModal } from "../modals/modalProvider";
-import { RouteTypes } from "@/app/navigation/route";
+import { ListItem } from "./list.model";
 
 interface ListDataContextType {
   items: ListItem[];
