@@ -1,7 +1,7 @@
 export interface Author {
-  name: string;
-  avatar: string;
-  description: string;
+  name?: string;
+  avatar?: string;
+  description?: string;
 }
 
 export interface ListItem {

@@ -1,0 +1,24 @@
+.container {
+  margin: 1.5rem;
+}
+.container > div {
+  position: relative;
+  margin: 0 1rem 1rem 0;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  cursor: pointer;
+}
+.wrapper {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.deleteBtn {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  scale: 1.3;
+}

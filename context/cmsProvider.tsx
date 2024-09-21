@@ -9,6 +9,7 @@ import { TextEditorProvider } from "./textEditor/textEditorProvider";
 import { ModalProvider } from "./modals/modalProvider";
 import { ListDataProvider } from "./listData/listDataProvider";
 import { UserProvider } from "./user/userContext";
+import { HorizontalModalProvider } from "./modals/horizontalModalProvider";
 
 export const CMSProvider: React.FC<{
   children: React.ReactNode;
@@ -16,17 +17,19 @@ export const CMSProvider: React.FC<{
   return (
     <LumiaProvider theme={cmsTheme}>
       <UserProvider>
-      <NotificationsProvider>
-        <ModalProvider>
-          <ListDataProvider>
-            <EditorProvider>
-              <TextEditorProvider>
-                <ThemeProvider theme={cmsTheme}>{children}</ThemeProvider>
-              </TextEditorProvider>
-            </EditorProvider>
-          </ListDataProvider>
-        </ModalProvider>
-      </NotificationsProvider>
+        <NotificationsProvider>
+          <ModalProvider>
+            <HorizontalModalProvider>
+              <ListDataProvider>
+                <EditorProvider>
+                  <TextEditorProvider>
+                    <ThemeProvider theme={cmsTheme}>{children}</ThemeProvider>
+                  </TextEditorProvider>
+                </EditorProvider>
+              </ListDataProvider>
+            </HorizontalModalProvider>
+          </ModalProvider>
+        </NotificationsProvider>
       </UserProvider>
     </LumiaProvider>
   );

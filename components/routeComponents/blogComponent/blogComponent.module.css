@@ -1,0 +1,33 @@
+.container {
+  width: 20rem;
+  height: 100svh;
+  transition: all 0.5s;
+  position: relative;
+  align-items: center;
+}
+
+.container.comment {
+  width: 35rem;
+}
+
+.container.analytics {
+  width: 40rem;
+}
+
+.editButton {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  align-self: flex-start !important;
+  margin-left: 2rem !important;
+}
+
+/*Tabs*/
+/*Tabs*/
+.tabsContainer {
+  width: 95%;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+/*Tabs*/
+/*Tabs*/

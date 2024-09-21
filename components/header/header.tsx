@@ -16,7 +16,7 @@ const Header = () => {
         type="outline"
         placeholder="Search here..."
       />
-      {item && item.blog && (
+      {item && item.canAddBlog && (
         <Button
           onClick={() => {
             route.push(`/editor/${path}/create`);

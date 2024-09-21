@@ -108,3 +108,8 @@ textarea::placeholder {
 textarea:focus {
   background-color: transparent; /* Change background color on focus */
 }
+
+button {
+  all: unset;
+}
+

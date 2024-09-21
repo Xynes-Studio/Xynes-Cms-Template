@@ -4,6 +4,7 @@ import styles from "./updateMetaImage.module.css";
 import { useEditor } from "@/context/editor/editorProvider";
 import { LmImage } from "@/theme/icons/LmImage";
 import { useRef } from "react";
+import UpdateImage from "@/components/updateImage/updateImage";
 
 const UpdateMetaImage = () => {
   const { meta, updateMeta } = useEditor();
@@ -36,32 +37,15 @@ const UpdateMetaImage = () => {
     const url = URL.createObjectURL(fileObj);
 
     // Call onUpdate callback with URL and file object
-    updateMeta({thumbnailUrl: url});
+    updateMeta({ thumbnailUrl: url });
   };
+
   return (
     <>
-      <input
-        type="file"
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-        ref={inputRef}
-        accept={accepted}
+      <UpdateImage
+        source={meta.thumbnailUrl}
+        updateSource={(value: string) => updateMeta({ thumbnailUrl: value })}
       />
-      <Flex className={styles.container}>
-        <img
-          alt="Meta Image"
-          src={meta.thumbnailUrl || ""}
-          className={styles.img}
-        />
-        <button onClick={() => inputRef.current?.click()} className={styles.overlayButton} >
-          <Flex direction="column" className={styles.overlay}>
-            <LMAsset Asset={LmImage} size={0.7} />
-            <Text className={styles.text} color="var(--foregroundInverse)">
-              Update Image
-            </Text>
-          </Flex>
-        </button>
-      </Flex>
     </>
   );
 };

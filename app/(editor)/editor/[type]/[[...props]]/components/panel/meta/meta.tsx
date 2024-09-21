@@ -4,7 +4,7 @@ import { useEditor } from "@/context/editor/editorProvider";
 import UpdateMetaImage from "../updateMetaImage/updateMetaImage";
 import { ChangeEvent } from "react";
 import styled from "styled-components";
-const Gap = styled.div`
+export const Gap = styled.div`
   height: 1rem;
 `;
 
