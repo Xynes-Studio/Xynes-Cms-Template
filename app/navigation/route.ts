@@ -44,21 +44,9 @@ export const routes: RouteTypes[] = [
     icon: LmCkAttachment,
     renderType: "",
   },
-  {
-    id: uuid(),
-    title: "Blogs",
-    link: "/blogs",
-    icon: LmCkReact,
-    canAddBlog: true,
-    renderType: "cards",
-    fetchEndPoint: "/blogs",
-    deleteEndPoint: "/users/blogs/",
-    switchEndPoint: "/users/blogs/",
-    action: {
-      type: 'open-modal-right',
-      actionComponent: BlogModalComponent
-    } as ModalActionComponent
-  },
+  ///GENERATED
+
+  ///GENERATED
   {
     id: uuid(),
     title: "About",
