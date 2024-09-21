@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { BlogModalProps } from "../blogComponent";
 import Loader from "@/components/load/load";
-import { Flex, Text, Textarea, TextInput } from "lumia-ui";
+import { Button, Flex, Text, Textarea, TextInput } from "lumia-ui";
 import styles from "./blog.meta.module.css";
 import { Gap } from "@/app/(editor)/editor/[type]/[[...props]]/components/panel/meta/meta";
 import { Meta } from "@/context/editor/editor.type";
@@ -85,6 +85,7 @@ const BlogMeta: React.FC<BlogModalProps> = ({ item }) => {
           className={styles.input}
         />
         <Gap />
+        <Button label="Submit" backgroundColor="var(--accent100)" color="var(--foregroundInverse)" />
       </Flex>
     </Flex>
   );
