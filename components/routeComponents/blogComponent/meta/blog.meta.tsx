@@ -3,7 +3,6 @@ import { BlogModalProps } from "../blogComponent";
 import Loader from "@/components/load/load";
 import { Flex, Text, Textarea, TextInput } from "lumia-ui";
 import styles from "./blog.meta.module.css";
-import UpdateMetaImage from "@/app/(editor)/editor/[type]/[[...props]]/components/panel/updateMetaImage/updateMetaImage";
 import { Gap } from "@/app/(editor)/editor/[type]/[[...props]]/components/panel/meta/meta";
 import { Meta } from "@/context/editor/editor.type";
 import moment from "moment";
