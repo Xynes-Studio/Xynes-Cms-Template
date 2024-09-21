@@ -25,7 +25,6 @@
 /*Tabs*/
 .tabsContainer {
   width: 95%;
-  height: 10rem;
   overflow: hidden;
   overflow-x: scroll;
 }

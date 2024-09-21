@@ -14,6 +14,7 @@ import {
 } from "lumia-ui";
 import { ListItem } from "@/context/listData/list.model";
 import styles from "./blogComponent.module.css";
+import RenderDetails from "./renderDetails";
 
 const metaEditData: FormElementData[] = [
   {
@@ -42,14 +43,13 @@ const metaEditData: FormElementData[] = [
   },
 ];
 
-interface BlogModalProps {
+export interface BlogModalProps {
   item: ListItem;
 }
 
 const BlogModalComponent: React.FC<BlogModalProps> = ({ item }) => {
-  const [metaData, setMetaData] = useState();
   const [containerStyles, setContainerStyles] = useState<string>();
-  const [selected, setSelected] = useState<string>("meta");
+  const [selected, setSelected] = useState<"meta" | "comments" | "analytics" | string>("meta");
 
   const handleClick = (type: "meta" | "comments" | "analytics" | string) => {
     setSelected(type);
@@ -114,6 +114,11 @@ const BlogModalComponent: React.FC<BlogModalProps> = ({ item }) => {
         </Flex>
       </div>
       {/**Tabs */}
+      {/**Details */}
+      {/**Details */}
+      <RenderDetails item={item} type={selected} />
+      {/**Details */}
+      {/**Details */}
     </Flex>
   );
 };
