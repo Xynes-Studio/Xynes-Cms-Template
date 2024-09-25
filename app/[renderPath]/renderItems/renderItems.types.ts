@@ -16,6 +16,7 @@ export interface renderOBJ {
   created_at?: string;
   created_by?: string;
   des?: string;
+  description?:string;
   id: string;
   keywords?: string;
   thumbnail?: string;

@@ -99,7 +99,7 @@ const ListDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           id: blog.id,
           type: type,
           title: blog.title,
-          description: blog.des,
+          description: blog.des || blog.description,
           image: blog.thumbnail,
           active: blog.active,
           author: {

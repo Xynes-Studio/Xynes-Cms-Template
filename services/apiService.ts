@@ -61,22 +61,26 @@ class ApiService {
 
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, options);
+      console.log(response);
       if (!response.ok) {
-        if(response.status==401){
+        if (response.status == 401) {
+          setTimeout(() => {
+            localStorage.removeItem("user");
+            window.location.reload();
+          }, 3000);
           throw new Error("Authentication Error, Please Try Logging again");
+        } else {
+          const error = await response.json();
+          throw new Error(
+            error?.error?.message || (error?.name == "AbortError"
+              ? "request was aborted!"
+              : "Request Failed")
+          );
         }
-        const error = await response.json();
-        throw new Error(error?.error?.message || "Request Failed");
       }
       return response.json();
     } catch (error: any) {
-      if (error.name === "AbortError") {
-        console.warn("Request was aborted");
-      }else if(error.statusCode==401){
-        console.error("Authentication Error:", error);
-      } else {
-        console.error("API request error:", error);
-      }
+      console.log(error)
       throw error;
     }
   }
