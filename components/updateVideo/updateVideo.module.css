@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  height: 20svh;
+  position: relative;
+  cursor: pointer;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlayButton {
+  all: unset;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -9;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.text {
+  margin-top: 1rem;
+}
+
+.container:hover .overlayButton {
+  z-index: 1;
+  opacity: 1;
+}
