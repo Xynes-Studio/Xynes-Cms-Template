@@ -1,0 +1,102 @@
+{
+  "apiEndpoint": "https://sumedas.xynes.com/api",
+  "bucket": "ciphers-collective",
+  "uploadApi": "https://uploads.xynes.com/api",
+  "navigation": {
+    "articles": {
+      "isBlog": true,
+      "tabs": [
+        {
+          "comments": {
+            "icon": "LmBuble",
+            "table": "article_comments"
+          }
+        },
+        {
+          "likes": {
+            "icon": "LmCkArrowUpDown",
+            "table": "article_likes"
+          }
+        }
+      ]
+    },
+
+    "courses": {
+      "isBlog": true,
+      "tabs": [
+        {
+          "participants": {
+            "icon": "LmBuble",
+            "table": "courses_participants"
+          },
+          "comments": {
+            "icon": "LmBuble",
+            "table": "courses_comments"
+          },
+          "likes": {
+            "icon": "LmBuble",
+            "table": "courses_likes"
+          }
+        }
+      ]
+    },
+
+    "videos_and_shorts": {
+      "isBlog": false,
+      "tabs": [
+        {
+          "comments": {
+            "icon": "LmBuble",
+            "table": "video_comments"
+          },
+          "likes": {
+            "icon": "LmBuble",
+            "table": "video_likes"
+          }
+        }
+      ]
+    },
+
+    "programs": {
+      "isBlog": true,
+      "tabs": [
+        {
+          "participants": {
+            "icon": "LmBuble",
+            "table": "programs_participants"
+          },
+          "comments": {
+            "icon": "LmBuble",
+            "table": "programs_comments"
+          },
+          "likes": {
+            "icon": "LmBuble",
+            "table": "programs_likes"
+          }
+        }
+      ]
+    },
+
+    "threads": {
+      "isBlog": false,
+      "tabs": [
+        {
+          "comments": {
+            "icon": "LmBuble",
+            "table": "thread_comments"
+          },
+          "likes": {
+            "icon": "LmBuble",
+            "table": "thread_likes"
+          }
+        }
+      ]
+    },
+
+    "users": {
+      "isBlog": false,
+      "tabs": []
+    }
+  },
+  "ignore": ["article_tags", "courses_tags"]
+}

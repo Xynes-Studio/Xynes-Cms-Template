@@ -45,7 +45,13 @@ export const routes: RouteTypes[] = [
     renderType: "",
   },
   ///GENERATED
-
+  {
+    id: uuid(),
+    title: "Blog",
+    link: "/blog",
+    icon: LmCkAttachment,
+    renderType: "",
+  },
   ///GENERATED
   {
     id: uuid(),
